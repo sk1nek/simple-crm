@@ -3,10 +3,7 @@ package me.mjaroszewicz.crmapp.entities;
 import lombok.Data;
 import lombok.Generated;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Set;
 
 @Entity
@@ -25,7 +22,9 @@ public class User {
 
     private String phone;
 
+    @ElementCollection(targetClass = String.class)
     private Set<String> permissions;
+
 
     private boolean active;
 
