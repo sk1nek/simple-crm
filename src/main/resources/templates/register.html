@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>Login Page</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css"/>
+    <title>Registration</title>
+    <link rel="stylesheet" href="/bulma.min.css"/>
     <link rel="stylesheet" href="/style.css"/>
     <script src="/fa-all.js"></script>
 </head>
@@ -13,34 +13,51 @@
     <div class="hero-body">
         <div class="container">
             <h1 class="title">
-                Login
+                Register
             </h1>
             <h2 class="subtitle">
                 Enter your credentials
             </h2>
 
-            <form>
+            <form action="#" th:action="@{/perform-login}" method="post" th:object="${user}">
                 <div class="field credentials-input">
                     <p class="control has-icons-left has-icons-right">
-                        <input class="input" type="text" placeholder="Username"/>
-                        <span class="icon is-small is-left">
+                        <input class="input" type="text" th:field="*{username}" placeholder="Username"/>
+                        <span class="icon is-small is-left is-dark">
                         <i class="fas fa-user"></i>
                     </span>
                     </p>
                 </div>
                 <div class="field credentials-input">
                     <p class="control has-icons-left">
-                        <input class="input" type="password" placeholder="Password"/>
-                        <span class="icon is-small is-left">
+                        <input class="input" type="password" th:field="*{password}" placeholder="Password"/>
+                        <span class="icon is-small is-left is-dark">
                             <i class="fas fa-lock"></i>
+                        </span>
+                    </p>
+                </div>
+                <div class="field credentials-input">
+                    <p class="control has-icons-left">
+                        <input class="input" type="email" th:field="*{email}" placeholder="E-mail"/>
+                        <span class="icon is-small is left is-dark">
+                            <i class="fas fa-email"></i>
                         </span>
                     </p>
                 </div>
                 <div class="field">
                     <p class="control">
                         <button type="submit" class="button is-success is-inverted">
-                            Login
+                            Register
                         </button>
+
+                        <button type="reset" class="button is-light">
+                            Reset
+                        </button>
+
+                        <button class="button is-light" th:href="@{/login}">
+                            Cancel
+                        </button>
+
                     </p>
                 </div>
 
