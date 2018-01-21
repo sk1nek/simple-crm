@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -54,6 +55,13 @@ public class UserService {
         log.info("User " + user.getUsername() + " registered");
 
         return userRepo.save(user);
+    }
+
+    @PostConstruct
+    private void init() throws RegistrationException{
+        User user = registerNewUser(new UserRegistrationDto("admin", "admin", "admin@admin.com"));
+        user.setActive(true);
+
     }
 
 
