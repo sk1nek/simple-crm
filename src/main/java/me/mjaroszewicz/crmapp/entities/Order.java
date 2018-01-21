@@ -1,8 +1,6 @@
 package me.mjaroszewicz.crmapp.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Collections;
@@ -14,6 +12,7 @@ import java.util.List;
 @Table(name = "orders")
 @NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class Order {
 
     @Id
@@ -21,26 +20,27 @@ public class Order {
     private Long id;
 
     // -1 for accepted, 0 for in-progress, 1 for realized
-    private int state;
+    @NonNull private int state;
 
-    private String name;
+    @NonNull private String name;
 
-    private String description;
+    @NonNull private String description;
 
-    private double value;
+    @NonNull private double value;
 
     @ManyToOne
-    private Client recipient;
+    @NonNull private Client recipient;
 
     @OneToMany
     @JoinTable(name = "payments")
     @ElementCollection(targetClass = Payment.class)
     private List<Payment> payments = Collections.emptyList();
 
+    @NonNull private String dateReceived;
 
-    private String dateReceived;
+    @NonNull private String dateDeadline;
 
-    private String dateDeadline;
+    private int paymentPercentage;
 
 
 

@@ -71,8 +71,8 @@ public class OrderService {
 
         List<Client> clients = clientRepository.findAll();
 
-        orderRepository.save(new Order(1L, 1, "Chairs", "Lorem ipsum foo bar", 5000.0, clients.get(0), null, "2018-01-01", "2018-02-18"));
-        orderRepository.save(new Order(2L, -1, "Armchairs", "Foo bar dolor sit amet", 2424.0, clients.get(1), null, "2018-01-04", "2018-02-19"));
+        orderRepository.save(new Order(1, "Chairs", "Lorem ipsum", 5000, clients.get(0), "2018-01-01", "2018-01-24"));
+        orderRepository.save(new Order(0, "Tables", "Foo bar ipsum", 2458, clients.get(1), "2018-01-05", "2018-01-21"));
     }
 
 }

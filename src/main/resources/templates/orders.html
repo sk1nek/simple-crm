@@ -87,7 +87,7 @@
                     <td th:text="${order.description}"></td>
                     <td th:text="${order.recipient.name}"></td>
                     <td th:text="${order.value}"></td>
-                    <td><progress value="5" max="10"></progress></td>
+                    <td><progress th:value="${order.paymentPercentage}/10" max="10"></progress></td>
                     <td th:text="${order.dateDeadline}"></td>
                 </tr>
 

@@ -2,10 +2,7 @@ package me.mjaroszewicz.crmapp.entities;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -19,5 +16,8 @@ public class Payment {
     private double amount;
 
     private String description;
+
+    @Column(name = "order_id")
+    private long parentOrderId;
 
 }
