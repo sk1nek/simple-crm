@@ -10,22 +10,7 @@
   </head>
   <body>
 
-  <nav class="navbar is-light" role="navigation" aria-label="main navigation">
 
-      <div class="navbar-brand">
-          <a class="navbar-item" href="https://bulma.io">
-              <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28"/>
-          </a>
-
-          <button class="button navbar-burger">
-              <span>
-              </span>
-              <span></span>
-              <span></span>
-          </button>
-      </div>
-
-  </nav>
 
   <section class="hero is-primary">
       <div class="hero-body">
@@ -38,22 +23,43 @@
               </h2>
           </div>
       </div>
+
+      <div class="container">
+          <nav class="navbar" role="navigation">
+              <div class="navbar-tabs">
+                  <a class="navbar-item" th:href="@{/dashboard}">Dashboard</a>
+                  <a class="navbar-item" th:href="@{/orders}">Orders</a>
+                  <a class="navbar-item" th:href="@{/complaints}">Complaints</a>
+              </div>
+          </nav>
+      </div>
+
   </section>
+
+
 
   <div class="container main">
       <section class="section">
+          <h1 class="title">This month</h1>
       <nav class="level">
           <div class="level-item has-text-centered">
               <div>
-                  <p class="heading">Clients</p>
-                  <p class="title">104</p>
+                  <p class="heading">New clients</p>
+                  <p class="title">5</p>
               </div>
           </div>
 
           <div class="level-item has-text-centered">
               <div>
-                  <p class="heading">Orders</p>
-                  <p class="title">33</p>
+                  <p class="heading">New orders</p>
+                  <p class="title">23</p>
+              </div>
+          </div>
+
+          <div class="level-item has-text-centered">
+              <div>
+                  <p class="heading">Orders completed</p>
+                  <p class="title"> 13</p>
               </div>
           </div>
 
@@ -66,7 +72,7 @@
 
           <div class="level-item has-text-centered">
               <div>
-                  <p class="heading">Month's balance</p>
+                  <p class="heading">Profit</p>
                   <p class="title">+$30 000</p>
               </div>
           </div>
@@ -202,6 +208,7 @@
           </div>
 
       </section>
+
 
 
 

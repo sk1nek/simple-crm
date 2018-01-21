@@ -3,6 +3,7 @@ package me.mjaroszewicz.crmapp.entities;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -28,7 +29,7 @@ public class Order {
     @OneToMany
     @JoinTable(name = "payments")
     @ElementCollection(targetClass = Payment.class)
-    private List<Payment> payments;
+    private List<Payment> payments = Collections.emptyList();
 
     private long dateReceived;
 
