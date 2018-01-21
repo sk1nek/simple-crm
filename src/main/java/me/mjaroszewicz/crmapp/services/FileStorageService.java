@@ -1,10 +1,11 @@
 package me.mjaroszewicz.crmapp.services;
 
-import me.mjaroszewicz.crmapp.FileStorageServiceProps;
+import me.mjaroszewicz.crmapp.Application;
 import me.mjaroszewicz.crmapp.exceptions.StorageException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,10 +23,13 @@ public class FileStorageService {
     private final Path root;
 
     private final static Logger log = LoggerFactory.getLogger(FileStorageService.class);
-
+    
     @Autowired
-    public FileStorageService(FileStorageServiceProps props){
-        this.root = Paths.get(props.getLocation());
+    public FileStorageService(){
+
+        String path = Application.class.getClassLoader().getResource("").getPath();
+        this.root = Paths.get(path).resolve("/files/");
+
     }
 
     public String storeFile(MultipartFile file, Class<?> sourceClass, Long id) throws StorageException{

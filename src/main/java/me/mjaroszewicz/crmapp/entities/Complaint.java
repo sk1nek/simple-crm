@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Data
+@Table(name = "complaints")
 @Entity
 public class Complaint {
 
@@ -17,7 +18,7 @@ public class Complaint {
     private Order order;
 
     @ElementCollection(targetClass = String.class)
-    @OneToOne
+    @JoinColumn
     private List<String> attachedFiles;
 
     private long dateCreated;

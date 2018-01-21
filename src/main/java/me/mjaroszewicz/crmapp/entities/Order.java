@@ -4,13 +4,15 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
+@Table(name = "orders")
 public class Order {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     // -1 for accepted, 0 for in-progress, 1 for realized
@@ -23,8 +25,9 @@ public class Order {
     @ManyToOne
     private Client recipient;
 
+    @OneToMany
+    @JoinTable(name = "payments")
     @ElementCollection(targetClass = Payment.class)
-    @OneToOne
     private List<Payment> payments;
 
     private long dateReceived;
