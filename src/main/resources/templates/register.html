@@ -19,10 +19,10 @@
                 Enter your credentials
             </h2>
 
-            <form action="#" th:action="@{/perform-login}" method="post" th:object="${user}">
+            <form>
                 <div class="field credentials-input">
                     <p class="control has-icons-left has-icons-right">
-                        <input class="input" type="text" th:field="*{username}" placeholder="Username"/>
+                        <input class="input" type="text" placeholder="Username"/>
                         <span class="icon is-small is-left">
                         <i class="fas fa-user"></i>
                     </span>
@@ -30,7 +30,7 @@
                 </div>
                 <div class="field credentials-input">
                     <p class="control has-icons-left">
-                        <input class="input" type="password" th:field="*{password}" placeholder="Password"/>
+                        <input class="input" type="password" placeholder="Password"/>
                         <span class="icon is-small is-left">
                             <i class="fas fa-lock"></i>
                         </span>
