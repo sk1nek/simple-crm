@@ -19,6 +19,8 @@ public class Order {
     // -1 for accepted, 0 for in-progress, 1 for realized
     private int state;
 
+    private String name;
+
     private String description;
 
     private double value;

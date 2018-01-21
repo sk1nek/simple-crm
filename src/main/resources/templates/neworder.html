@@ -24,30 +24,92 @@
           </div>
       </div>
 
-      <div class="container">
-          <nav class="navbar" role="navigation">
-              <div class="navbar-tabs">
-                  <a class="navbar-item" th:href="@{/dashboard}">Dashboard</a>
-                  <a class="navbar-item" th:href="@{/orders}">Orders</a>
-                  <a class="navbar-item" th:href="@{/complaints}">Complaints</a>
-              </div>
-          </nav>
-      </div>
 
   </section>
 
 
-
-  <div class="container main">
-
-      <section>
-
-      </section>
+  <div class="container">
+      <nav class="navbar" role="navigation">
+          <div class="navbar-start">
+              <a class="navbar-item" th:href="@{/dashboard}">Dashboard</a>
 
 
 
+              <a class="navbar-item" th:href="@{/complaints}">Complaints</a>
+
+              <div class="navbar-item has-dropdown is-hoverable">
+                  <a class="navbar-link" th:href="@{/orders}">
+                      Orders
+                  </a>
+
+                  <div class="navbar-dropdown">
+                      <a class="navbar-item" th:href="@{/orders/new}">
+                          New order
+                      </a>
+                  </div>
+              </div>
+          </div>
+      </nav>
   </div>
 
+  <div class="container main">
+      <section class="section">
+
+          <h1 class="title">New order</h1>
+
+          <form action="#" th:action="@{/orders/new}" th:object="${orderdto}" method="post">
+              <div class="field">
+                  <label class="label">Name</label>
+                  <div class="control">
+                      <input class="input" type="text" th:field="*{orderName}" placeholder="Name"/>
+                  </div>
+              </div>
+
+              <div class="field">
+                  <label class="label">Description</label>
+                  <div class="control">
+                      <input class="input" type="text" th:field="*{description}" placeholder="Description"/>
+                  </div>
+              </div>
+
+              <div class="field">
+                  <label class="label">Client</label>
+                  <div class="control">
+                      <div class="select">
+                          <select th:field="*{clientId}">
+                              <th:block th:each="client: ${clients}">
+                                  <option th:value="${client.id}" th:text="${client.name}"></option>
+                              </th:block>
+                          </select>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="field">
+                  <label class="label">Pricing ($)</label>
+                  <div class="control">
+                      <input class="input" th:field="*{value}" type="number"/>
+                  </div>
+              </div>
+
+              <div class="field">
+                  <label class="label">Deadline</label>
+                  <div class="control">
+                      <input class="input" th:field="*{dateDeadline}" type="date"/>
+                  </div>
+              </div>
+
+              <div class="field">
+                  <input type="submit" class="button is-link" value="Submit"/>
+                  <a class="button is-outlined" th:href="@{/orders}">Cancel</a>
+              </div>
+
+
+          </form>
+
+
+      </section>
+  </div>
 
   <footer class="footer bottom">
       <div class="container">

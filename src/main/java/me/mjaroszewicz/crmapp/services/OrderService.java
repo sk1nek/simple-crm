@@ -13,6 +13,7 @@ public class OrderService {
     private OrderRepository orderRepository;
 
     public void addNewOrder(int state,
+                            String name,
                             String desc,
                             double value,
                             Client recipient,
@@ -21,6 +22,7 @@ public class OrderService {
 
         Order order = new Order();
 
+        order.setName(name);
         order.setState(state);
         order.setDescription(desc);
         order.setValue(value);
