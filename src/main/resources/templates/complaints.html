@@ -68,33 +68,35 @@
 
         <table class="table is-hoverable is-fullwidth">
             <thead>
+            <th>Urgent</th>
             <th>Id</th>
-            <th>State</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Client</th>
-            <th>Value</th>
-            <th>Payment progress</th>
+            <th>Order</th>
+            <th>Files</th>
             <th>Deadline</th>
+            <th>Description</th>
+            <th>State</th>
+            <th>Result</th>
             </thead>
 
             <tbody>
 
-            <th:block th:each="order: ${orders}">
-                <tr th:onclick="'window.location.href = \'' + @{/orders/{id}(id=${order.id})} + '\''">
-                    <th th:text="${order.id}"></th>
-                    <td th:switch="${order.state}">
-                        <a th:case="-1">Accepted</a>
-                        <a th:case="0">In production</a>
-                        <a th:case="1">Realized</a>
+            <th:block th:each="complaint: ${complaints}">
+                <tr th:onclick="'window.location.href = \'' + @{/complaints/{id}(id=${complaint.id})} + '\''">
+                    <td th:switch="${complaint.urgent}">
+                        <a th:case="true" th:text="Y"></a>
+                        <a th:case="false" th:text="N"></a>
                     </td>
-                    <td th:text="${order.name}">
+                    <th th:text="${complaint.id}"></th>
+                    <td th:onclick="'window.location.href = \'' + @{/orders/{id}(id=${complaint.order.id})} + '\''"></td>
+                    <td th:text="'todo - modal'"></td>
+                    <td th:text="${complaint.dateDeadline}"></td>
+                    <td th:text="${complaint.description}"></td>
+                    <td th:switch="${complaint.state}">
+                        <a th:case="-1" th:text="'Accepted'"></a>
+                        <a th:case="0" th:text="'In production'"></a>
+                        <a th:case="1" th:text="'Realized'"></a>
                     </td>
-                    <td th:text="${order.description}"></td>
-                    <td th:text="${order.recipient.name}"></td>
-                    <td th:text="${order.value}"></td>
-                    <td><progress th:value="${order.paymentPercentage}/10" max="10"></progress></td>
-                    <td th:text="${order.dateDeadline}"></td>
+                    <td th:text="${complaint.result}"></td>
                 </tr>
 
             </th:block>
@@ -120,4 +122,12 @@
 </footer>
 
 </body>
+
+<script>
+    function getDetails(v) {
+        window.location.href = 'index.html';
+        window.alert("Omg" + v);
+
+    }
+</script>
 </html>

@@ -33,9 +33,17 @@
           <div class="navbar-start">
               <a class="navbar-item" th:href="@{/dashboard}">Dashboard</a>
 
+              <div class="navbar-item has-dropdown is-hoverable">
+                  <a class="navbar-link" th:href="@{/complaints}">
+                      Complaints
+                  </a>
 
-
-              <a class="navbar-item" th:href="@{/complaints}">Complaints</a>
+                  <div class="navbar-dropdown">
+                      <a class="navbar-item" th:href="@{/complaints/new}">
+                          New complaint
+                      </a>
+                  </div>
+              </div>
 
               <div class="navbar-item has-dropdown is-hoverable">
                   <a class="navbar-link" th:href="@{/orders}">

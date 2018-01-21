@@ -21,9 +21,9 @@ public class Complaint {
     @JoinColumn
     private List<String> attachedFiles;
 
-    private long dateCreated;
+    private String dateCreated;
 
-    private long dateDeadline;
+    private String dateDeadline;
 
     private String description;
 
