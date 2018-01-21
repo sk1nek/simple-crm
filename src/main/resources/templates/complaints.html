@@ -6,7 +6,7 @@
     <title>Hello Bulma!</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css"/>
     <link rel="stylesheet" href="style.css"/>
-    <script src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script>
+    <script src="fa-all.js"></script>
 </head>
 <body>
 
@@ -64,7 +64,7 @@
 
     <section class="section">
 
-        <h1 class="title">Orders</h1>
+        <h1 class="title">Complaints</h1>
 
         <table class="table is-hoverable is-fullwidth">
             <thead>
@@ -83,11 +83,11 @@
             <th:block th:each="complaint: ${complaints}">
                 <tr th:onclick="'window.location.href = \'' + @{/complaints/{id}(id=${complaint.id})} + '\''">
                     <td th:switch="${complaint.urgent}">
-                        <a th:case="true" th:text="Y"></a>
-                        <a th:case="false" th:text="N"></a>
+                        <a th:case="true" th:text="Yes"></a>
+                        <a th:case="false" th:text="No"></a>
                     </td>
                     <th th:text="${complaint.id}"></th>
-                    <td th:onclick="'window.location.href = \'' + @{/orders/{id}(id=${complaint.order.id})} + '\''"></td>
+                    <td><a th:text="${complaint.order.name}" th:href="@{/orders/{id}(id=${complaint.order.id})}"></a> </td>
                     <td th:text="'todo - modal'"></td>
                     <td th:text="${complaint.dateDeadline}"></td>
                     <td th:text="${complaint.description}"></td>
