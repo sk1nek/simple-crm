@@ -12,7 +12,7 @@
 
 
 
-  <section class="hero is-primary">
+  <section class="hero is-primary is-success">
       <div class="hero-body">
           <div class="container">
               <h1 class="title">
@@ -64,40 +64,40 @@
 
   <div class="container main">
       <section class="section">
-          <h1 class="title">This month</h1>
+          <h1 class="title">Important data</h1>
       <nav class="level">
           <div class="level-item has-text-centered">
               <div>
-                  <p class="heading">New clients</p>
-                  <p class="title">5</p>
+                  <p class="heading">Clients</p>
+                  <p class="title" th:text="${clientsCount}"></p>
               </div>
           </div>
 
           <div class="level-item has-text-centered">
               <div>
-                  <p class="heading">New orders</p>
-                  <p class="title">23</p>
+                  <p class="heading">Active orders</p>
+                  <p class="title" th:text="${activeOrdersCount}"></p>
               </div>
           </div>
 
           <div class="level-item has-text-centered">
               <div>
                   <p class="heading">Orders completed</p>
-                  <p class="title"> 13</p>
+                  <p class="title" th:text="${completedOrdersCount}"> </p>
               </div>
           </div>
 
           <div class="level-item has-text-centered">
               <div>
-                  <p class="heading">Complaints</p>
-                  <p class="title">5</p>
+                  <p class="heading">Complaints left</p>
+                  <p class="title" th:text="${unresolvedComplaintsCount}"></p>
               </div>
           </div>
 
           <div class="level-item has-text-centered">
               <div>
-                  <p class="heading">Profit</p>
-                  <p class="title">+$30 000</p>
+                  <p class="heading">Order sum</p>
+                  <p class="title" th:text="'$'+${ordersValueSum}"></p>
               </div>
           </div>
 
