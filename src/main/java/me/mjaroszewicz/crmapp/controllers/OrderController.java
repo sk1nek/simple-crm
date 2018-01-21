@@ -7,6 +7,7 @@ import me.mjaroszewicz.crmapp.services.ClientService;
 import me.mjaroszewicz.crmapp.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -22,6 +23,15 @@ public class OrderController {
     @Autowired
     private ClientService clientService;
 
+    @GetMapping
+    public ModelAndView getOrdersListing(ModelAndView mv){
+
+        mv.setViewName("orders");
+        mv.addObject("orders", orderService.getAllOrders());
+
+        return mv;
+    }
+
     @GetMapping("/new")
     public ModelAndView getNewOrderCreator(ModelAndView mv){
         mv.setViewName("neworder");
@@ -36,11 +46,17 @@ public class OrderController {
     }
 
     @PostMapping("/new")
-    public String createNewOrder(@ModelAttribute OrderDto orderDto){
+    public ModelAndView createNewOrder(@ModelAttribute OrderDto orderDto, ModelAndView mv, Errors err){
 
-        System.out.println(orderDto.toString());
+        mv.setViewName("redirect:/orders");
 
-        return "redirect://orders/";
+        if(err.hasErrors()){
+            mv.addObject("error", err.getAllErrors());
+        }
+
+        orderService.addNewOrder(orderDto);
+
+        return mv;
     }
 
     @GetMapping("/{id}")

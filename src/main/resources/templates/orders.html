@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Hello Bulma!</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css"/>
+    <link rel="stylesheet" href="style.css"/>
+    <script src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script>
+</head>
+<body>
+
+
+
+<section class="hero is-primary">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">
+                Dashboard
+            </h1>
+            <h2 class="subtitle">
+                Lorem ipsum
+            </h2>
+        </div>
+    </div>
+
+
+
+</section>
+
+<div class="container">
+    <nav class="navbar" role="navigation">
+        <div class="navbar-start">
+            <a class="navbar-item" th:href="@{/dashboard}">Dashboard</a>
+
+
+
+            <a class="navbar-item" th:href="@{/complaints}">Complaints</a>
+
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link" th:href="@{/orders}">
+                    Orders
+                </a>
+
+                <div class="navbar-dropdown">
+                    <a class="navbar-item" th:href="@{/orders/new}">
+                        New order
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+
+<div class="container main">
+
+    <section class="section">
+
+        <h1 class="title">Orders</h1>
+
+        <table class="table is-hoverable is-fullwidth">
+            <thead>
+            <th>Id</th>
+            <th>State</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Client</th>
+            <th>Value</th>
+            <th>Payment progress</th>
+            <th>Deadline</th>
+            </thead>
+
+            <tbody>
+
+            <th:block th:each="order: ${orders}">
+                <tr>
+                    <th th:text="${order.id}"></th>
+                    <td th:switch="${order.state}">
+                        <a th:case="-1">Accepted</a>
+                        <a th:case="0">In production</a>
+                        <a th:case="1">Realized</a>
+                    </td>
+                    <td th:text="${order.name}">
+                    </td>
+                    <td th:text="${order.description}"></td>
+                    <td th:text="${order.recipient.name}"></td>
+                    <td th:text="${order.value}"></td>
+                    <td><progress value="5" max="10"></progress></td>
+                    <td th:text="${order.dateDeadline}"></td>
+                </tr>
+
+            </th:block>
+
+            </tbody>
+        </table>
+
+    </section>
+
+
+</div>
+
+
+
+
+
+<footer class="footer bottom">
+    <div class="container">
+        <div class="content has-text-centered">
+            <p>MJ 2018</p>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

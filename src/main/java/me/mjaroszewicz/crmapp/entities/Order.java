@@ -1,15 +1,19 @@
 package me.mjaroszewicz.crmapp.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
+
 
 @Data
 @Entity
 @Table(name = "orders")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Order {
 
     @Id
@@ -33,9 +37,10 @@ public class Order {
     @ElementCollection(targetClass = Payment.class)
     private List<Payment> payments = Collections.emptyList();
 
-    private long dateReceived;
 
-    private long dateDeadline;
+    private String dateReceived;
+
+    private String dateDeadline;
 
 
 
