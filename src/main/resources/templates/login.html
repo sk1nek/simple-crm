@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Login Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css"/>
+    <link rel="stylesheet" href="/style.css"/>
+    <script src="/fa-all.js"></script>
+</head>
+<body>
+<section class="hero is-success is-fullheight">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">
+                Login
+            </h1>
+            <h2 class="subtitle">
+                Enter your credentials
+            </h2>
+
+            <form>
+                <div class="field credentials-input">
+                    <p class="control has-icons-left has-icons-right">
+                        <input class="input" type="text" placeholder="Username"/>
+                        <span class="icon is-small is-left">
+                        <i class="fas fa-user"></i>
+                    </span>
+                    </p>
+                </div>
+                <div class="field credentials-input">
+                    <p class="control has-icons-left">
+                        <input class="input" type="password" placeholder="Password"/>
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                    </p>
+                </div>
+                <div class="field">
+                    <p class="control">
+                        <button type="submit" class="button is-success is-inverted">
+                            Login
+                        </button>
+                    </p>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+</section>
+</body>
+
+
+</html>
