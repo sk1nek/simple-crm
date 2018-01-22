@@ -41,11 +41,13 @@ public class PaymentService {
         double sum = 0;
         for(Payment p: payments)
             sum += p.getAmount();
-        order.setPaymentPercentage((int) (sum / order.getValue()));
+        order.setPaymentPercentage((sum / order.getValue()) * 10.0);
         //
 
         payment.setParentOrderId(order.getId());
         order.setPayments(payments);
+
+        System.out.println(order.toString());
 
         orderRepository.save(order);
 //        paymentRepository.save(payment);

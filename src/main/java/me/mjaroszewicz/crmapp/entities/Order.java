@@ -34,13 +34,13 @@ public class Order {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @ElementCollection(targetClass = Payment.class)
-    private List<Payment> payments = Collections.emptyList();
+    private List<Payment> payments;
 
     @NonNull private String dateReceived;
 
     @NonNull private String dateDeadline;
 
-    private int paymentPercentage;
+    private double paymentPercentage;
 
 
 

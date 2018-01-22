@@ -13,7 +13,7 @@
 
 
 
-<section class="hero is-primary">
+<section class="hero is-success">
     <div class="hero-body">
         <div class="container">
             <h1 class="title">
@@ -94,7 +94,7 @@
                     <td th:text="${order.description}"></td>
                     <td th:text="${order.recipient.name}"></td>
                     <td th:text="${order.value}"></td>
-                    <td><progress th:value="${order.paymentPercentage}/10" max="10"></progress></td>
+                    <td><progress class="progress is-success" th:value="${order.paymentPercentage}" max="10"></progress></td>
                     <td th:text="${order.dateDeadline}"></td>
                 </tr>
 
@@ -129,7 +129,7 @@
 <footer class="footer bottom">
     <div class="container">
         <div class="content has-text-centered">
-            <p>MJ 2018</p>
+            <p><strong>©<a href="http://mjaroszewicz.me/">M. Jaroszewicz </a>2018</strong></p>
         </div>
     </div>
 </footer>
