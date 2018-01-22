@@ -8,7 +8,10 @@ import me.mjaroszewicz.crmapp.repositories.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service("paymentService")
 public class PaymentService {
@@ -45,8 +48,22 @@ public class PaymentService {
         order.setPayments(payments);
 
         orderRepository.save(order);
-        paymentRepository.save(payment);
+//        paymentRepository.save(payment);
 
+    }
+
+    @PostConstruct
+    private void init(){
+        Order order = orderRepository.findAll().get(0);
+
+        addPaymentToOrder(order, new Payment(300d, "Lorem", System.currentTimeMillis()));
+
+        order = orderRepository.findAll().get(1);
+
+        addPaymentToOrder(order, new Payment(500d, "Ipsum", System.currentTimeMillis()));
+
+        order = orderRepository.findAll().get(0);
+        addPaymentToOrder(order, new Payment(700d, "Foo", System.currentTimeMillis()));
     }
 
 

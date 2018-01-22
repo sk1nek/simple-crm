@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 
 @Data
@@ -31,8 +32,7 @@ public class Order {
     @ManyToOne
     @NonNull private Client recipient;
 
-    @OneToMany
-    @JoinTable(name = "payments")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @ElementCollection(targetClass = Payment.class)
     private List<Payment> payments = Collections.emptyList();
 

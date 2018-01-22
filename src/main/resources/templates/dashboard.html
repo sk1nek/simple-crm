@@ -24,8 +24,6 @@
           </div>
       </div>
 
-
-
   </section>
 
   <div class="container">
@@ -124,23 +122,15 @@
                       </thead>
 
                       <tbody>
-                      <tr>
-                          <th>1</th>
-                          <td>$2000</td>
-                          <td>Lorem ipsum</td>
-                      </tr>
+                      <th:block th:each="payment: ${payments}">
 
-                      <tr>
-                          <th>2</th>
-                          <td>$4200</td>
-                          <td>Dolor sit amet</td>
-                      </tr>
+                          <tr>
+                              <th th:text="${payment.id}"></th>
+                              <td th:text="${payment.amount}"></td>
+                              <td th:text="${payment.description}"></td>
+                          </tr>
+                      </th:block>
 
-                      <tr>
-                          <th>3</th>
-                          <td>$600</td>
-                          <td>Exegi monumentum</td>
-                      </tr>
                       </tbody>
 
                   </table>
@@ -242,7 +232,7 @@
   <footer class="footer bottom">
       <div class="container">
           <div class="content has-text-centered">
-              <p>MJ 2018</p>
+              <p><strong>©<a href="http://mjaroszewicz.me/">M. Jaroszewicz </a>2018</strong></p>
           </div>
       </div>
   </footer>

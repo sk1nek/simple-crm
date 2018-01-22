@@ -2,9 +2,12 @@ package me.mjaroszewicz.crmapp.services;
 
 import me.mjaroszewicz.crmapp.entities.Complaint;
 import me.mjaroszewicz.crmapp.entities.Order;
+import me.mjaroszewicz.crmapp.entities.Payment;
 import me.mjaroszewicz.crmapp.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class DataAggregationService {
@@ -63,6 +66,10 @@ public class DataAggregationService {
             sum += o.getValue();
         return sum;
 
+    }
+
+    public List<Payment> getLastThreePayments(){
+        return paymentRepository.findFirst3ByOrderByDateMilisDesc();
     }
 
 
