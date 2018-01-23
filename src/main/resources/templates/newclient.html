@@ -12,14 +12,14 @@
 
 
 
-  <section class="hero is-primary">
+  <section class="hero is-success">
       <div class="hero-body">
           <div class="container">
               <h1 class="title">
-                  Dashboard
+                  Clients
               </h1>
               <h2 class="subtitle">
-                  Lorem ipsum
+                  Add new
               </h2>
           </div>
       </div>
@@ -77,11 +77,11 @@
 
           <h1 class="title">New order</h1>
 
-          <form action="#" th:action="@{/orders/new}" th:object="${orderdto}" method="post">
+          <form action="#" th:action="@{/clients/new}" th:object="${clientDto}" method="post">
               <div class="field">
                   <label class="label">Name</label>
                   <div class="control">
-                      <input class="input" type="text" th:field="*{orderName}" placeholder="Name"/>
+                      <input class="input" type="text" th:field="*{name}" placeholder="Name"/>
                   </div>
               </div>
 
@@ -92,39 +92,32 @@
                   </div>
               </div>
 
+
               <div class="field">
-                  <label class="label">Client</label>
+                  <label class="label">Address</label>
                   <div class="control">
-                      <div class="select">
-                          <select th:field="*{clientId}">
-                              <th:block th:each="client: ${clients}">
-                                  <option th:value="${client.id}" th:text="${client.name}"></option>
-                              </th:block>
-                          </select>
-                      </div>
+                      <input class="input" th:field="*{address}" type="text"/>
                   </div>
               </div>
 
               <div class="field">
-                  <label class="label">Pricing ($)</label>
+                  <label class="label">Email</label>
                   <div class="control">
-                      <input class="input" th:field="*{value}" type="number"/>
+                      <input class="input" th:field="*{email}" type="email"/>
                   </div>
               </div>
 
               <div class="field">
-                  <label class="label">Deadline</label>
+                  <label class="label">Phone</label>
                   <div class="control">
-                      <input class="input" th:field="*{dateDeadline}" type="date"/>
+                      <input class="input" th:field="*{phone}">
                   </div>
               </div>
 
               <div class="field">
                   <input type="submit" class="button is-link" value="Submit"/>
-                  <a class="button is-outlined" th:href="@{/orders}">Cancel</a>
+                  <a class="button is-outlined" th:href="@{/clients}">Cancel</a>
               </div>
-
-
           </form>
 
 

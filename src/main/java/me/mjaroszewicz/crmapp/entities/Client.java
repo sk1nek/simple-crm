@@ -1,8 +1,6 @@
 package me.mjaroszewicz.crmapp.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +11,7 @@ import javax.persistence.Table;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@RequiredArgsConstructor
 @Table(name = "clients")
 public class Client {
 
@@ -20,17 +19,20 @@ public class Client {
     @Id
     private Long id;
 
+    @NonNull
     private String name;
 
+    @NonNull
     private String description;
 
+    @NonNull
     private String address;
 
     private String phone;
 
     private String email;
 
-
-
+    @NonNull
+    private long dateCreatedMilis;
 
 }

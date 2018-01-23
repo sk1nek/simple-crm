@@ -56,6 +56,19 @@
                     </a>
                 </div>
             </div>
+
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link" th:href="@{/clients}">
+                    Clients
+                </a>
+
+                <div class="navbar-dropdown">
+                    <a class="navbar-item" th:href="@{/clients/new}">
+                        New client
+                    </a>
+                </div>
+            </div>
+
         </div>
     </nav>
 </div>
@@ -82,11 +95,11 @@
 
             <th:block th:each="complaint: ${complaints}">
                 <tr th:onclick="'window.location.href = \'' + @{/complaints/{id}(id=${complaint.id})} + '\''">
+                    <th th:text="${complaint.id}"></th>
                     <td th:switch="${complaint.urgent}">
                         <a th:case="true" th:text="Yes"></a>
                         <a th:case="false" th:text="No"></a>
                     </td>
-                    <th th:text="${complaint.id}"></th>
                     <td><a th:text="${complaint.order.name}" th:href="@{/orders/{id}(id=${complaint.order.id})}"></a> </td>
                     <td th:text="'todo - modal'"></td>
                     <td th:text="${complaint.dateDeadline}"></td>
