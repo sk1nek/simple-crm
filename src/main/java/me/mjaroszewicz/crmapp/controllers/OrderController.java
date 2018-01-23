@@ -60,7 +60,7 @@ public class OrderController {
     }
 
     @GetMapping("/{id}")
-    public ModelAndView getOrderDetails(ModelAndView mv, @RequestAttribute(name = "id") Long id) {
+    public ModelAndView getOrderDetails(ModelAndView mv, @PathVariable("id") Long id) {
 
         mv.setViewName("orderdetails");
 
