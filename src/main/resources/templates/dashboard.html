@@ -216,7 +216,10 @@
                       <th:block th:each="complaint: ${complaints}">
                           <tr>
                               <th th:text="${complaint.id}"></th>
-                              <td th:text="${complaint.urgent}"></td>
+                              <td th:switch="${complaint.urgent}">
+                                  <p th:case="true" th:text="Yes"></p>
+                                  <p th:case="false" th:text="No"></p>
+                              </td>
                               <td th:text="${complaint.dateDeadline}"></td>
                               <td th:text="${complaint.description}"></td>
                           </tr>
