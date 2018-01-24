@@ -26,7 +26,7 @@ public class DashboardController {
         mv.addObject("ordersValueSum", dataAggregationService.getOrdersValueSum());
 
         mv.addObject("payments", dataAggregationService.getLastThreePayments());
-
+        mv.addObject("complaints", dataAggregationService.getLastThreeComplaints());
 
         return mv;
     }

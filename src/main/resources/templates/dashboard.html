@@ -207,24 +207,20 @@
                           id
                       </th>
                       <th>Urgent</th>
-                      <th>Date</th>
+                      <th>Deadline</th>
                       <th>Description</th>
                       </thead>
 
                       <tbody>
-                      <tr>
-                          <th>1</th>
-                          <td>Yes</td>
-                          <td>2018-01-22</td>
-                          <td>5 tables broken</td>
-                      </tr>
 
-                      <tr>
-                          <th>2</th>
-                          <td>No</td>
-                          <td>2018-01-10</td>
-                          <td>Chair slightly scratched in transport</td>
-                      </tr>
+                      <th:block th:each="complaint: ${complaints}">
+                          <tr>
+                              <th th:text="${complaint.id}"></th>
+                              <td th:text="${complaint.urgent}"></td>
+                              <td th:text="${complaint.dateDeadline}"></td>
+                              <td th:text="${complaint.description}"></td>
+                          </tr>
+                      </th:block>
                       </tbody>
 
                   </table>

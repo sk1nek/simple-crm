@@ -11,4 +11,7 @@ public interface ComplaintRepository extends CrudRepository<Complaint, Long> {
 
     public List<Complaint> findAll();
 
+    public List<Complaint> findFirst3ByOrderByDateDeadline();
+
+
 }
