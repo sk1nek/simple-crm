@@ -66,6 +66,16 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
+    public List<Order> getOrdersByClient(Long client){
+        return getOrdersByClient(clientRepository.findOne(client));
+    }
+
+    public List<Order> getOrdersByClient(Client client){
+
+        return orderRepository.findAllByRecipient(client);
+
+    }
+
     @PostConstruct
     private void init(){
 

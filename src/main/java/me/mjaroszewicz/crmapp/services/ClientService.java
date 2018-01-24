@@ -32,6 +32,10 @@ public class ClientService {
         return clientRepository.findOneByName(name);
     }
 
+    public Client getClient(Long id){
+        return clientRepository.findOne(id);
+    }
+
     public void addNewClient(ClientDto clientDto) {
 
         Client client = new Client(

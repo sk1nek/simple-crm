@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Hello Bulma!</title>
+      <link rel="stylesheet" href="/bulma.min.css"/>
+      <link rel="stylesheet" href="/style.css"/>
+      <script src="fa-all.js"></script>
+  </head>
+  <body>
+
+
+
+  <section class="hero is-success">
+      <div class="hero-body">
+          <div class="container">
+              <h1 class="title">
+                  Client
+              </h1>
+              <h2 class="subtitle">
+                  Detailed info
+              </h2>
+          </div>
+      </div>
+
+
+  </section>
+
+
+  <div class="container">
+      <nav class="navbar" role="navigation">
+          <div class="navbar-start">
+              <a class="navbar-item" th:href="@{/dashboard}">Dashboard</a>
+
+              <div class="navbar-item has-dropdown is-hoverable">
+                  <a class="navbar-link" th:href="@{/complaints}">
+                      Complaints
+                  </a>
+
+                  <div class="navbar-dropdown">
+                      <a class="navbar-item" th:href="@{/complaints/new}">
+                          New complaint
+                      </a>
+                  </div>
+              </div>
+
+              <div class="navbar-item has-dropdown is-hoverable">
+                  <a class="navbar-link" th:href="@{/orders}">
+                      Orders
+                  </a>
+
+                  <div class="navbar-dropdown">
+                      <a class="navbar-item" th:href="@{/orders/new}">
+                          New order
+                      </a>
+                  </div>
+              </div>
+
+              <div class="navbar-item has-dropdown is-hoverable">
+                  <a class="navbar-link" th:href="@{/clients}">
+                      Clients
+                  </a>
+
+                  <div class="navbar-dropdown">
+                      <a class="navbar-item" th:href="@{/clients/new}">
+                          New client
+                      </a>
+                  </div>
+              </div>
+          </div>
+      </nav>
+  </div>
+
+  <div class="container main">
+      <section class="section">
+
+          <h1 class="title">Client</h1>
+
+          <table class="table is-hoverable">
+              <thead>
+              <th>Param</th>
+              <th>Value</th>
+              </thead>
+              <tbody>
+
+              <tr>
+                  <th>Id</th>
+                  <td th:text="${client.id}"></td>
+              </tr>
+
+              <tr>
+                  <th>Name</th>
+                  <td th:text="${client.name}"></td>
+              </tr>
+
+              <tr>
+                  <th>Description</th>
+                  <td th:text="${client.description}"></td>
+              </tr>
+
+              <tr>
+                  <th>Address</th>
+                  <td th:text="${client.address}"></td>
+              </tr>
+
+              <tr>
+                  <th>Phone</th>
+                  <td th:text="${client.phone}"></td>
+              </tr>
+
+              <tr>
+                  <th>Email</th>
+                  <td th:text="${client.email}"></td>
+              </tr>
+
+              <tr>
+                  <th>Orders</th>
+                  <td>
+                      <th:block th:each="order : ${orders}">
+                          <p>
+                              <a th:href="@{/orders/{id}(id=${order.id})}" th:text="${order.name}"></a>
+                          </p>
+                      </th:block>
+                  </td>
+              </tr>
+
+              </tbody>
+          </table>
+
+
+
+
+      </section>
+  </div>
+
+  <footer class="footer bottom">
+      <div class="container">
+          <div class="content has-text-centered">
+              <p><strong>©<a href="http://mjaroszewicz.me/">M. Jaroszewicz </a>2018</strong></p>
+          </div>
+      </div>
+  </footer>
+
+  </body>
+</html>

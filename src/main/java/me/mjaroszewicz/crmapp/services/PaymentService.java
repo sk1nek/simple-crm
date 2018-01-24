@@ -1,23 +1,28 @@
 package me.mjaroszewicz.crmapp.services;
 
+import me.mjaroszewicz.crmapp.entities.Client;
 import me.mjaroszewicz.crmapp.entities.Order;
 import me.mjaroszewicz.crmapp.entities.Payment;
+import me.mjaroszewicz.crmapp.entities.User;
 import me.mjaroszewicz.crmapp.exceptions.PersistenceException;
+import me.mjaroszewicz.crmapp.repositories.ClientRepository;
 import me.mjaroszewicz.crmapp.repositories.OrderRepository;
 import me.mjaroszewicz.crmapp.repositories.PaymentRepository;
+import me.mjaroszewicz.crmapp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Service("paymentService")
 public class PaymentService {
 
     @Autowired
     private PaymentRepository paymentRepository;
+
+    @Autowired
+    private ClientRepository clientRepository;
 
     @Autowired
     private OrderRepository orderRepository;
@@ -53,6 +58,8 @@ public class PaymentService {
 //        paymentRepository.save(payment);
 
     }
+
+
 
     @PostConstruct
     private void init(){

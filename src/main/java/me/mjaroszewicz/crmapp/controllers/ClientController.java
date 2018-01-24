@@ -2,8 +2,8 @@ package me.mjaroszewicz.crmapp.controllers;
 
 import me.mjaroszewicz.crmapp.annotations.ValidClient;
 import me.mjaroszewicz.crmapp.dto.ClientDto;
-import me.mjaroszewicz.crmapp.entities.Client;
 import me.mjaroszewicz.crmapp.services.ClientService;
+import me.mjaroszewicz.crmapp.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
@@ -16,6 +16,10 @@ public class ClientController {
 
     @Autowired
     private ClientService clientService;
+
+    @Autowired
+    private OrderService orderService;
+
 
     @GetMapping
     public ModelAndView getClientsListing(ModelAndView mv){
@@ -46,6 +50,17 @@ public class ClientController {
             return new ModelAndView("redirect:/clients/new?hasErrors=true");
 
         clientService.addNewClient(clientDto);
+
+        return mv;
+    }
+
+    @GetMapping("/{id}")
+    public ModelAndView getClientDetails(ModelAndView mv, @PathVariable(name = "id") Long id){
+
+        mv.setViewName("clientdetails");
+
+        mv.addObject("orders", orderService.getOrdersByClient(id));
+        mv.addObject("client", clientService.getClient(id));
 
         return mv;
     }
