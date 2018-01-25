@@ -27,6 +27,7 @@ public class DashboardController {
 
         mv.addObject("payments", dataAggregationService.getLastThreePayments());
         mv.addObject("complaints", dataAggregationService.getLastThreeComplaints());
+        mv.addObject("orders", dataAggregationService.getLastThreeOrders());
 
         return mv;
     }

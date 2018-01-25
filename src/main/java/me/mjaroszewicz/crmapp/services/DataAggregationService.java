@@ -76,6 +76,10 @@ public class DataAggregationService {
         return complaintRepository.findFirst3ByOrderByDateDeadline();
     }
 
+    public List<Order> getLastThreeOrders(){
+        return orderRepository.findFirst3ByOrderByIdDesc();
+    }
+
 
 
 }

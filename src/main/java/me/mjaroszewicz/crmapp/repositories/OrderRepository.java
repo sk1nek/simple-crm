@@ -13,4 +13,7 @@ public interface OrderRepository extends CrudRepository<Order, Long>{
     List<Order> findAll();
 
     List<Order> findAllByRecipient(Client client);
+
+    List<Order> findFirst3ByOrderByIdDesc();
+
 }

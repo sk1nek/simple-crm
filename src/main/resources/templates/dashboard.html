@@ -158,36 +158,24 @@
                       <th>id</th>
                       <th>Value</th>
                       <th>Client</th>
-                      <th>Date</th>
+                      <th>Deadline</th>
                       <th>Payments</th>
 
                       </thead>
 
                       <tbody>
 
-                      <tr>
-                          <th>1</th>
-                          <td>$4000</td>
-                          <td>Company Inc.</td>
-                          <td>2018-01-19</td>
-                          <td><progress class="progress is-success is-small" value="7" max="10">70%</progress> </td>
-                      </tr>
+                      <th:block th:each="order:${orders}">
+                          <tr>
+                              <th th:text="${order.id}"></th>
+                              <td th:text="'$' + ${order.value}"></td>
+                              <td><a th:href="@{/clients/{id}(id=${order.recipient.id})}" th:text="${order.recipient.name}"></a> </td>
+                              <td th:text="${order.dateDeadline}"></td>
+                              <td><progress class="progress is-success is-small" th:value="${order.paymentPercentage}" max="10"></progress> </td>
+                          </tr>
 
-                      <tr>
-                          <th>2</th>
-                          <td>$400</td>
-                          <td>John Smith</td>
-                          <td>2018-01-10</td>
-                          <td><progress class="progress is-success is-small" value="10" max="10">100%</progress> </td>
-                      </tr>
+                      </th:block>
 
-                      <tr>
-                          <th>3</th>
-                          <td>$5800</td>
-                          <td>Big Firm Ltd.</td>
-                          <td>2018-01-20</td>
-                          <td><progress class="progress is-success is-small" value="2" max="10">20%</progress> </td>
-                      </tr>
 
                       </tbody>
 
