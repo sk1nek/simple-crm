@@ -29,48 +29,7 @@
 </section>
 
 <div class="container">
-    <nav class="navbar" role="navigation">
-        <div class="navbar-start">
-            <a class="navbar-item" th:href="@{/dashboard}">Dashboard</a>
-
-            <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link" th:href="@{/complaints}">
-                    Complaints
-                </a>
-
-                <div class="navbar-dropdown">
-                    <a class="navbar-item" th:href="@{/complaints/new}">
-                        New complaint
-                    </a>
-                </div>
-            </div>
-
-            <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link" th:href="@{/orders}">
-                    Orders
-                </a>
-
-                <div class="navbar-dropdown">
-                    <a class="navbar-item" th:href="@{/orders/new}">
-                        New order
-                    </a>
-                </div>
-            </div>
-
-            <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link" th:href="@{/clients}">
-                    Clients
-                </a>
-
-                <div class="navbar-dropdown">
-                    <a class="navbar-item" th:href="@{/clients/new}">
-                        New client
-                    </a>
-                </div>
-            </div>
-
-        </div>
-    </nav>
+    <div th:replace="fragments/navigation :: navigation"></div>
 </div>
 
 <div class="container main">
