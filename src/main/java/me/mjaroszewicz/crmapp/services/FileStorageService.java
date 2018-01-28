@@ -1,11 +1,11 @@
 package me.mjaroszewicz.crmapp.services;
 
 import me.mjaroszewicz.crmapp.Application;
+import me.mjaroszewicz.crmapp.entities.Complaint;
 import me.mjaroszewicz.crmapp.exceptions.StorageException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,7 +14,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -34,15 +36,7 @@ public class FileStorageService {
 
     public String storeFile(MultipartFile file, Class<?> sourceClass, Long id) throws StorageException{
 
-        String filename = file.getName();
-
-        StringBuilder sb = new StringBuilder();
-        sb
-                .append(sourceClass.getSimpleName())
-                .append('_')
-                .append(id)
-                .append('_')
-                .append(findNonOccupiedFilename(filename));
+        StringBuilder sb = buildFileName(sourceClass, id, file.getName());
 
         try{
             Files.write(root.resolve(sb.toString()), file.getBytes());
@@ -52,6 +46,34 @@ public class FileStorageService {
 
         return sb.toString();
 
+    }
+
+    private StringBuilder buildFileName(Class<?> sourceClass, Long id, String filename) {
+
+        StringBuilder sb = new StringBuilder();
+        sb
+                .append(sourceClass.getSimpleName())
+                .append('_')
+                .append(id)
+                .append('_')
+                .append(findNonOccupiedFilename(filename));
+
+        return sb;
+    }
+
+    public List<File> retrieveAttachments(Complaint complaint) throws StorageException {
+
+        Long id = complaint.getId();
+
+        List<File> ret = new ArrayList<>();
+
+        for (String name : complaint.getAttachedFiles()) {
+            String filename = buildFileName(complaint.getClass(), id, name).toString();
+            File f = loadFile(filename);
+            ret.add(f);
+        }
+
+        return ret;
     }
 
     /**
@@ -98,7 +120,6 @@ public class FileStorageService {
 
         Path p = root.resolve(name);
         return p.toFile();
-
     }
 
 
