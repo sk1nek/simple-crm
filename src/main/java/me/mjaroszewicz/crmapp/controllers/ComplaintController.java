@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
+
 @Controller
 @RequestMapping("/complaints")
 public class ComplaintController {
@@ -44,7 +46,7 @@ public class ComplaintController {
 
     @PostMapping("/new")
     public ModelAndView handleComplaintSubmit(ModelAndView mv,
-                                              @ModelAttribute ComplaintDto complaint,
+                                              @ModelAttribute @Valid ComplaintDto complaint,
                                               Errors err) {
 
         mv.setViewName("complaints");
