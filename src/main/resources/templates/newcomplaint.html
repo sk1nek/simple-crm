@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Hello Bulma!</title>
       <link rel="stylesheet" href="/bulma.min.css"/>
-      <link rel="stylesheet" href="style.css"/>
+      <link rel="stylesheet" href="/style.css"/>
       <script src="fa-all.js"></script>
   </head>
   <body>
 
 
 
-  <section class="hero is-primary">
+  <section class="hero is-success">
       <div class="hero-body">
           <div class="container">
               <h1 class="title">
@@ -72,7 +72,8 @@
               <div class="field">
                   <div class="control">
                       <label class="label">Files</label>
-                      <input multiple="multiple" class="input" type="file" th:field="*{files}" name="files"  />
+                      <label for="file-upload" class="button is-link">Select</label>
+                      <input id="file-upload" multiple="multiple" type="file" th:field="*{files}" name="files"  />
                   </div>
               </div>
 

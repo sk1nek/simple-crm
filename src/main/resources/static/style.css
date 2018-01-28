@@ -13,3 +13,7 @@
     padding-bottom: 1rem;
     position: absolute;
 }
+
+input[type="file"]{
+    display: none;
+}
