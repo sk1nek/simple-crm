@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Hello Bulma!</title>
+      <link rel="stylesheet" href="/bulma.min.css"/>
+      <link rel="stylesheet" href="style.css"/>
+      <script src="fa-all.js"></script>
+  </head>
+  <body>
+
+
+
+  <section class="hero is-primary">
+      <div class="hero-body">
+          <div class="container">
+              <h1 class="title">
+                  Complaints
+              </h1>
+              <h2 class="subtitle">
+                  Add new
+              </h2>
+          </div>
+      </div>
+
+
+  </section>
+
+
+  <div class="container">
+      <div th:replace="fragments/navigation :: navigation"></div>
+  </div>
+
+  <div class="container main">
+      <section class="section">
+
+          <h1 class="title">New complaint</h1>
+
+          <form action="#" enctype="multipart/form-data" th:action="@{/complaints/new}" th:object="${complaint}" method="post">
+              <div class="field">
+                  <label class="label">Description</label>
+                  <div class="control">
+                      <input class="input" type="text" th:field="*{description}" placeholder="Description"/>
+                  </div>
+              </div>
+
+              <div class="field is-narrow">
+                  <label class="label">Urgent?</label>
+                  <div class="control">
+                      <label class="checkbox">
+                          Yes
+                          <input type="checkbox" th:field="*{urgent}"/>
+                      </label>
+                  </div>
+              </div>
+
+              <div class="field">
+                  <label class="label">Order</label>
+                  <div class="control">
+                      <input class="input" type="text" th:field="*{orderId}" placeholder="Order Id"/>
+                  </div>
+              </div>
+
+              <div class="field">
+                  <label class="label">Deadline</label>
+                  <div class="control">
+                      <input class="input" type="date" th:field="*{deadline}" placeholder="Deadline"/>
+                  </div>
+              </div>
+
+              <div class="field">
+                  <div class="control">
+                      <label class="label">Files</label>
+                      <input multiple="multiple" class="input" type="file" th:field="*{files}" name="files"  />
+                  </div>
+              </div>
+
+              <div class="field">
+                  <input type="submit" class="button is-link" value="Submit"/>
+                  <a class="button is-outlined" th:href="@{/complaints}">Cancel</a>
+              </div>
+
+
+          </form>
+
+
+      </section>
+  </div>
+
+  <footer class="footer bottom">
+      <div class="container">
+          <div class="content has-text-centered">
+              <p><strong>©<a href="http://mjaroszewicz.me/">M. Jaroszewicz </a>2018</strong></p>
+          </div>
+      </div>
+  </footer>
+
+  </body>
+</html>
