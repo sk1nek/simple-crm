@@ -2,6 +2,7 @@ package me.mjaroszewicz.crmapp.controllers;
 
 import me.mjaroszewicz.crmapp.dto.ComplaintDto;
 import me.mjaroszewicz.crmapp.entities.Complaint;
+import me.mjaroszewicz.crmapp.exceptions.ComplaintSubmitException;
 import me.mjaroszewicz.crmapp.services.ComplaintService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -51,10 +52,19 @@ public class ComplaintController {
 
         mv.setViewName("complaints");
 
-        if(err.hasErrors())
-            for(ObjectError e: err.getAllErrors())
-                System.out.println(e.toString());
+        if(err.hasErrors()){
+            mv.addObject("errors", err.getAllErrors());
+            return mv;
+        }
 
+        try {
+            complaintService.registerNewComplaint(complaint);
+        } catch (ComplaintSubmitException e) {
+            mv.addObject("message", e.getMessage());
+            return mv;
+        }
+
+        mv.addObject("message", "Success!");
 
         return mv;
     }
