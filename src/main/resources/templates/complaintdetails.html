@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Hello Bulma!</title>
+      <link rel="stylesheet" href="/bulma.min.css"/>
+      <link rel="stylesheet" href="/style.css"/>
+      <script src="fa-all.js"></script>
+  </head>
+  <body>
+
+
+
+  <section th:replace="fragments/header :: header"></section>
+
+
+
+  <div class="container">
+      <div th:replace="fragments/navigation :: navigation"></div>
+  </div>
+
+  <div class="container main">
+      <section class="section">
+
+          <h1 class="title">Order</h1>
+
+          <table class="table is-hoverable">
+              <thead>
+              <th>Param</th>
+              <th>Value</th>
+              </thead>
+              <tbody>
+
+              <tr>
+                  <th>Id</th>
+                  <td th:text="${complaint.id}"></td>
+              </tr>
+
+              <tr>
+                  <th>Order</th>
+                  <td><a th:text="${complaint.order.name}" th:href="@{/orders/{id}(id=${complaint.order.id})}"></a></td>
+              </tr>
+
+              <tr>
+                  <th>Files</th>
+                  <td th:text="${order.description}"></td>
+              </tr>
+
+              <tr>
+                  <th>Creation</th>
+                  <td th:text="${order.dateCreated}"></td>
+              </tr>
+
+              <tr>
+                  <th>Deadline</th>
+                  <td th:text="${order.dateDeadline}"></td>
+              </tr>
+
+              <tr>
+                  <th>Description</th>
+                  <td th:text="${order.description}"></td>
+              </tr>
+
+              <tr>
+                  <th>Payments</th>
+                  <td>
+                      <th:block th:each="payment : ${order.payments}">
+                          <p th:text="${payment.description} + ' - $' + ${payment.amount}"></p>
+                      </th:block>
+                  </td>
+              </tr>
+
+              <tr>
+                  <th>Deadline</th>
+                  <td th:text="${order.dateDeadline}"></td>
+              </tr>
+
+              <tr>
+                  <th>Created</th>
+                  <td th:text="${order.dateReceived}"></td>
+              </tr>
+
+              </tbody>
+          </table>
+
+
+
+
+      </section>
+  </div>
+
+  <footer th:replace="fragments/footer :: footer"></footer>
+
+
+  </body>
+</html>

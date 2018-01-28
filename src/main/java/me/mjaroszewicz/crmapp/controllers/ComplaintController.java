@@ -1,19 +1,12 @@
 package me.mjaroszewicz.crmapp.controllers;
 
 import me.mjaroszewicz.crmapp.dto.ComplaintDto;
-import me.mjaroszewicz.crmapp.entities.Complaint;
 import me.mjaroszewicz.crmapp.exceptions.ComplaintSubmitException;
 import me.mjaroszewicz.crmapp.services.ComplaintService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
-import org.springframework.validation.ObjectError;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -41,6 +34,16 @@ public class ComplaintController {
         mv.setViewName("newcomplaint");
 
         mv.addObject("complaint", new ComplaintDto());
+
+        return mv;
+    }
+
+    @GetMapping("/{id}")
+    public ModelAndView getSingleComplaint(ModelAndView mv, @PathVariable Long id) {
+
+        mv.setViewName("complaintdetails");
+
+        mv.addObject("complaint", complaintService.findComplaint(id));
 
         return mv;
     }

@@ -38,6 +38,13 @@ public class ComplaintService {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private FileStorageService fileStorageService;
+
+    public Complaint findComplaint(Long id){
+        return complaintRepository.findOne(id);
+    }
+
     public List<Complaint> getAllComplaints(){
         return complaintRepository.findAll();
     }
@@ -62,13 +69,26 @@ public class ComplaintService {
                         .map(MultipartFile::getOriginalFilename)
                         .collect(Collectors.toList()));
 
+
+
         complaint.setUrgent(dto.isUrgent());
         complaint.setDateDeadline(dto.getDeadline());
         complaint.setState(-1);
         complaint.setDescription(dto.getDescription());
         complaint.setDateCreated(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE));
 
-        complaintRepository.save(complaint);
+
+        Long id = complaintRepository.save(complaint).getId();
+
+        for(MultipartFile f: dto.getFiles()){
+            try{
+                fileStorageService.storeFile(f, Complaint.class, id);
+            }catch (Throwable t){
+                complaintRepository.delete(id);
+                throw new ComplaintSubmitException("Couldn't persist file: " + t.getMessage());
+            }
+        }
+
         log.info("Complaint registered: " + complaint.toString());
     }
 
