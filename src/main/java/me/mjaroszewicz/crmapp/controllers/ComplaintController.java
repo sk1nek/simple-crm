@@ -4,6 +4,7 @@ import me.mjaroszewicz.crmapp.dto.ComplaintDto;
 import me.mjaroszewicz.crmapp.exceptions.ComplaintSubmitException;
 import me.mjaroszewicz.crmapp.services.ComplaintService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
@@ -29,11 +30,16 @@ public class ComplaintController {
     }
 
     @GetMapping("/new")
-    public ModelAndView getNewComplaintForm(ModelAndView mv){
+    public ModelAndView getNewComplaintForm(ModelAndView mv, @RequestParam(required = false) Long orderId){
 
         mv.setViewName("newcomplaint");
 
-        mv.addObject("complaint", new ComplaintDto());
+        ComplaintDto dto = new ComplaintDto();
+
+        if(orderId != null)
+            dto.setOrderId(orderId);
+
+        mv.addObject("complaint", dto);
 
         return mv;
     }
