@@ -46,6 +46,10 @@ public class ComplaintService {
         return complaintRepository.findOne(id);
     }
 
+    public void deleteComplaint(Long id){
+        complaintRepository.delete(id);
+    }
+
     public List<Complaint> getAllComplaints(){
         return complaintRepository.findAll();
     }

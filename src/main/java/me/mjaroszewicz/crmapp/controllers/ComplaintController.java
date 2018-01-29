@@ -81,4 +81,14 @@ public class ComplaintController {
         return mv;
     }
 
+    @GetMapping("/delete/{id}")
+    public ModelAndView handleComplaintDelete(ModelAndView mv, @PathVariable Long id){
+
+        mv.setViewName("redirect:/complaints/");
+
+        complaintService.deleteComplaint(id);
+
+        return mv;
+    }
+
 }
