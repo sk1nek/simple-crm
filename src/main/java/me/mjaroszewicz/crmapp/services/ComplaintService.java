@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -60,36 +61,33 @@ public class ComplaintService {
 
         complaint.setOrder(order);
 
-        List<MultipartFile> files = (dto.getFiles() != null ? dto.getFiles() : Collections.emptyList());
-
-        complaint.setAttachedFiles(
-                files
-                        .stream()
-                        .distinct()
-                        .map(MultipartFile::getOriginalFilename)
-                        .collect(Collectors.toList()));
-
-
-
         complaint.setUrgent(dto.isUrgent());
         complaint.setDateDeadline(dto.getDeadline());
         complaint.setState(-1);
         complaint.setDescription(dto.getDescription());
         complaint.setDateCreated(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE));
 
-
         Long id = complaintRepository.save(complaint).getId();
+        log.info("Complaint registered: " + complaint.toString());
 
-        for(MultipartFile f: dto.getFiles()){
-            try{
-                fileStorageService.storeFile(f, Complaint.class, id);
-            }catch (Throwable t){
-                complaintRepository.delete(id);
-                throw new ComplaintSubmitException("Couldn't persist file: " + t.getMessage());
+        if(dto.getFiles() != null){
+            List<String> filenames = new ArrayList<>();
+
+            for(MultipartFile f: dto.getFiles()){
+                try{
+                    filenames.add(fileStorageService.storeFile(f, Complaint.class, id));
+                }catch (Throwable t){
+                    complaintRepository.delete(id);
+                    t.printStackTrace();
+                    throw new ComplaintSubmitException("Couldn't persist file: " + t.getMessage());
+                }
             }
+
+            complaint.setAttachedFiles(filenames);
+            complaintRepository.save(complaint);
         }
 
-        log.info("Complaint registered: " + complaint.toString());
+
     }
 
 

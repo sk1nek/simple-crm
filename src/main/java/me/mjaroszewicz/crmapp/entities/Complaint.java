@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Collections;
 import java.util.List;
 
 @Data
@@ -23,7 +24,7 @@ public class Complaint {
 
     @ElementCollection(targetClass = String.class)
     @JoinColumn
-    private List<String> attachedFiles;
+    private List<String> attachedFiles = Collections.emptyList();
 
     private String dateCreated;
 

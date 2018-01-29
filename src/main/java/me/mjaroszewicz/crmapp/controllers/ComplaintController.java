@@ -53,7 +53,7 @@ public class ComplaintController {
                                               @ModelAttribute @Valid ComplaintDto complaint,
                                               Errors err) {
 
-        mv.setViewName("complaints");
+        mv.setViewName("redirect:/complaints/");
 
         if(err.hasErrors()){
             mv.addObject("errors", err.getAllErrors());
@@ -64,8 +64,11 @@ public class ComplaintController {
             complaintService.registerNewComplaint(complaint);
         } catch (ComplaintSubmitException e) {
             mv.addObject("message", e.getMessage());
+            System.out.println(e.getMessage());
             return mv;
         }
+
+        System.out.println(complaint.toString());
 
         mv.addObject("message", "Success!");
 

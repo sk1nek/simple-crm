@@ -25,6 +25,10 @@
 
           <h1 class="title">Order</h1>
 
+          <th:block th:each="error: ${errors}">
+              <p th:text="${error}"></p>
+          </th:block>
+
           <table class="table is-hoverable">
               <thead>
               <th>Param</th>
@@ -43,43 +47,32 @@
               </tr>
 
               <tr>
-                  <th>Files</th>
-                  <td th:text="${order.description}"></td>
+                  <th>Description</th>
+                  <td th:text="${complaint.description}"></td>
               </tr>
 
               <tr>
                   <th>Creation</th>
-                  <td th:text="${order.dateCreated}"></td>
+                  <td th:text="${complaint.dateCreated}"></td>
               </tr>
 
               <tr>
                   <th>Deadline</th>
-                  <td th:text="${order.dateDeadline}"></td>
+                  <td th:text="${complaint.dateDeadline}"></td>
               </tr>
 
               <tr>
-                  <th>Description</th>
-                  <td th:text="${order.description}"></td>
-              </tr>
-
-              <tr>
-                  <th>Payments</th>
+                  <th>Files</th>
                   <td>
-                      <th:block th:each="payment : ${order.payments}">
-                          <p th:text="${payment.description} + ' - $' + ${payment.amount}"></p>
+                      <th:block th:each="file :${complaint.attachedFiles}">
+                          <p>
+                              <a th:href="@{/files/{name}/(name=${file})}" th:text="${file}"></a>
+                          </p>
                       </th:block>
                   </td>
               </tr>
 
-              <tr>
-                  <th>Deadline</th>
-                  <td th:text="${order.dateDeadline}"></td>
-              </tr>
 
-              <tr>
-                  <th>Created</th>
-                  <td th:text="${order.dateReceived}"></td>
-              </tr>
 
               </tbody>
           </table>

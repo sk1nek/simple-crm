@@ -6,9 +6,13 @@ import me.mjaroszewicz.crmapp.exceptions.StorageException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -25,20 +29,22 @@ public class FileStorageService {
     private final Path root;
 
     private final static Logger log = LoggerFactory.getLogger(FileStorageService.class);
-    
+
     @Autowired
     public FileStorageService(){
 
-        String path = Application.class.getClassLoader().getResource("").getPath();
-        this.root = Paths.get(path).resolve("/files/");
+        String path = System.getProperty("user.dir");
+        this.root = Paths.get(path).resolve("files");
 
     }
 
     public String storeFile(MultipartFile file, Class<?> sourceClass, Long id) throws StorageException{
 
-        StringBuilder sb = buildFileName(sourceClass, id, file.getName());
+        StringBuilder sb = buildFileName(sourceClass, id, file.getOriginalFilename());
 
         try{
+            log.info("Persisting file " + sb.toString());
+
             Files.write(root.resolve(sb.toString()), file.getBytes());
         }catch (IOException ioex){
             throw new StorageException(ioex.getMessage());
@@ -61,15 +67,15 @@ public class FileStorageService {
         return sb;
     }
 
-    public List<File> retrieveAttachments(Complaint complaint) throws StorageException {
+    public List<Resource> retrieveAttachments(Complaint complaint) throws StorageException {
 
         Long id = complaint.getId();
 
-        List<File> ret = new ArrayList<>();
+        List<Resource> ret = new ArrayList<>();
 
         for (String name : complaint.getAttachedFiles()) {
             String filename = buildFileName(complaint.getClass(), id, name).toString();
-            File f = loadFile(filename);
+            Resource f = loadFile(filename);
             ret.add(f);
         }
 
@@ -113,15 +119,31 @@ public class FileStorageService {
         return buffer;
     }
 
-    public File loadFile(String name) throws StorageException{
+    public Resource loadFile(String name) throws StorageException{
+
+        System.out.println("filename: " + name);
 
         if(!getFileNames().contains(name))
             throw new StorageException("File " + name + " not found.");
 
         Path p = root.resolve(name);
-        return p.toFile();
+        File f = p.toFile();
+
+        Resource r;
+        try{
+            r = new UrlResource(f.toURI());
+            return r;
+
+        }catch (Throwable t){
+            throw new StorageException("Could not read file: " + t.getMessage());
+        }
+
     }
 
+    @PostConstruct
+    private void init(){
+        System.out.println(root.toAbsolutePath().toString());
+    }
 
 
 }
