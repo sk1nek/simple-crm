@@ -50,7 +50,7 @@
                         <a th:case="false" th:text="No"></a>
                     </td>
                     <td><a th:text="${complaint.order.name}" th:href="@{/orders/{id}(id=${complaint.order.id})}"></a> </td>
-                    <td th:text="'todo - modal'"></td>
+                    <td th:text="${complaint.attachedFiles.size()}"></td>
                     <td th:text="${complaint.dateDeadline}"></td>
                     <td th:text="${complaint.description}"></td>
                     <td th:switch="${complaint.state}">
@@ -67,6 +67,7 @@
         </table>
 
     </section>
+
 
 
 </div>
