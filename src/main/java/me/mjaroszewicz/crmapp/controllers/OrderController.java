@@ -11,6 +11,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -48,15 +49,17 @@ public class OrderController {
     @PostMapping("/new")
     public ModelAndView createNewOrder(@ModelAttribute OrderDto orderDto, ModelAndView mv, Errors err){
 
-        mv.setViewName("redirect:/orders");
-
         if(err.hasErrors()){
-            mv.addObject("error", err.getAllErrors());
+            mv.addObject("errors", err.getAllErrors());
+            getOrdersListing(mv);
         }
 
         orderService.addNewOrder(orderDto);
 
-        return mv;
+        mv.addObject("messages", Collections.singletonList("Success!"));
+
+        return getOrdersListing(mv);
+
     }
 
     @GetMapping("/{id}")

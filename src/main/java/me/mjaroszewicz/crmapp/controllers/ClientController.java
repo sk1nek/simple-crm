@@ -10,6 +10,8 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Collections;
+
 @Controller
 @RequestMapping("/clients")
 public class ClientController {
@@ -32,13 +34,10 @@ public class ClientController {
     }
 
     @GetMapping("/new")
-    public ModelAndView getNewClientForm(ModelAndView mv, @RequestParam(required = false) boolean hasErrors){
+    public ModelAndView getNewClientForm(ModelAndView mv){
 
         mv.setViewName("newclient");
         mv.addObject("clientDto", new ClientDto());
-
-        if(hasErrors)
-            mv.addObject("hasErrors", hasErrors);
 
         return mv;
     }
@@ -46,10 +45,14 @@ public class ClientController {
     @PostMapping("/new")
     public ModelAndView addNewClient(@ValidClient @ModelAttribute ClientDto clientDto, ModelAndView mv, Errors err){
 
-        if(err.hasErrors())
-            return new ModelAndView("redirect:/clients/new?hasErrors=true");
+        if(err.hasErrors()){
+            mv.addObject("errors", err.getAllErrors());
+            return getClientsListing(mv);
+        }
 
         clientService.addNewClient(clientDto);
+
+        mv.addObject("messages", Collections.singletonList("Success!"));
 
         return mv;
     }
