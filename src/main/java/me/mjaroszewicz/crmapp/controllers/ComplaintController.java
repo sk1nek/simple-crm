@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.Arrays;
+import java.util.Collections;
 
 @Controller
 @RequestMapping("/complaints")
@@ -59,26 +61,22 @@ public class ComplaintController {
                                               @ModelAttribute @Valid ComplaintDto complaint,
                                               Errors err) {
 
-        mv.setViewName("redirect:/complaints/");
 
         if(err.hasErrors()){
             mv.addObject("errors", err.getAllErrors());
-            return mv;
+            return getComplaintListing(mv);
         }
 
         try {
             complaintService.registerNewComplaint(complaint);
         } catch (ComplaintSubmitException e) {
-            mv.addObject("message", e.getMessage());
-            System.out.println(e.getMessage());
-            return mv;
+            mv.addObject("errors", Collections.singletonList(e.getMessage()));
+            return getComplaintListing(mv);
         }
 
-        System.out.println(complaint.toString());
+        mv.addObject("messages", "Success!");
 
-        mv.addObject("message", "Success!");
-
-        return mv;
+        return getComplaintListing(mv);
     }
 
     @GetMapping("/delete/{id}")
