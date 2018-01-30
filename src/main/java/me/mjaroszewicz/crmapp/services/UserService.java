@@ -11,10 +11,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
-import javax.transaction.Transactional;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Service("userService")
 public class UserService {
@@ -33,6 +36,39 @@ public class UserService {
 
     public List<User> getAllUsers(){
         return userRepo.findAll();
+    }
+
+
+    @Transactional
+    public void activateUser(Long id){
+        User user = userRepo.findOne(id);
+        user.setActive(true);
+        userRepo.save(user);
+    }
+
+    @Transactional
+    public void deactivateUser(Long id){
+        User user = userRepo.findOne(id);
+        user.setActive(false);
+        userRepo.save(user);
+    }
+
+    @Transactional
+    public void grantAdmin(Long id){
+        User user = userRepo.findOne(id);
+        Set<String> permissions = user.getPermissions();
+        permissions.add("ROLE_ADMIN");
+        user.setPermissions(permissions);
+        userRepo.save(user);
+    }
+
+    @Transactional
+    public void revokeAdmin(Long id){
+        User user = userRepo.findOne(id);
+        Set<String> permissions = user.getPermissions();
+        permissions.remove("ROLE_ADMIN");
+        user.setPermissions(permissions);
+        userRepo.save(user);
     }
 
     @Transactional

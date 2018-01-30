@@ -53,7 +53,18 @@
                         <p th:text="${p}"></p>
                     </th:block>
                 </td>
-                <td>Buttons here</td>
+                <td>
+                    <th:block th:switch="${user.isActive()}">
+                        <a th:case="false" class="tag" th:href="@{/admin/users/activate/{id}(id=${user.id})}">Activate</a>
+                        <a th:case="true" class="tag" th:href="@{/admin/users/deactivate/{id}(id=${user.id})}">Deactivate</a>
+                    </th:block>
+
+                    <th:block th:switch="${user.getPermissions().contains('ROLE_ADMIN')}">
+                        <a th:case="false" class="tag" th:href="@{/admin/users/grantadmin/{id}(id=${user.id})}">Grant Admin</a>
+                        <a th:case="true" class="tag" th:href="@{/admin/users/revokeadmin/{id}(id=${user.id})}">Revoke Admin</a>
+                    </th:block>
+
+                </td>
 
             </th:block>
 
