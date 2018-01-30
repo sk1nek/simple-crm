@@ -4,12 +4,17 @@ import me.mjaroszewicz.crmapp.dto.UserRegistrationDto;
 import me.mjaroszewicz.crmapp.entities.User;
 import me.mjaroszewicz.crmapp.exceptions.RegistrationException;
 import me.mjaroszewicz.crmapp.repositories.UserRepository;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +30,9 @@ public class UserService {
     private final static Logger log = LoggerFactory.getLogger(UserService.class);
 
     private final static String[] DEFAULT_ROLES = {"ROLE_USER"};
+
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
 
     @Autowired
     private UserRepository userRepo;
@@ -62,13 +70,35 @@ public class UserService {
         userRepo.save(user);
     }
 
+    /**
+     *
+     * @param id target user id
+     * @param request - http request associated with method call
+     * @return true if current user has his rights revoked
+     */
     @Transactional
-    public void revokeAdmin(Long id){
+    public boolean revokeAdmin(Long id, HttpServletRequest request){
         User user = userRepo.findOne(id);
         Set<String> permissions = user.getPermissions();
         permissions.remove("ROLE_ADMIN");
         user.setPermissions(permissions);
         userRepo.save(user);
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName();
+
+        if (name.equals(user.getUsername())) {
+            try{
+                auth.setAuthenticated(false);
+                request.logout();
+            }catch (Throwable t){
+                t.printStackTrace();
+            }finally {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     @Transactional

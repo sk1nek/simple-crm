@@ -1,7 +1,9 @@
 package me.mjaroszewicz.crmapp.controllers;
 
 import me.mjaroszewicz.crmapp.services.UserService;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -65,9 +67,10 @@ public class AdminController {
     }
 
     @GetMapping("/users/revokeadmin/{id}")
-    public ModelAndView handleRevokeAdmin(ModelAndView mv, @PathVariable Long id){
+    public ModelAndView handleRevokeAdmin(ModelAndView mv, @PathVariable Long id, HttpServletRequest request){
 
-        userService.revokeAdmin(id);
+        if( userService.revokeAdmin(id, request))
+            return new ModelAndView("redirect:/logout");
 
         mv.addObject("messages", Collections.singletonList("Success"));
 
