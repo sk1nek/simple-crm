@@ -11,11 +11,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                .authorizeRequests().antMatchers("/fa-all.js","/bulma.min.css","/style.css", "/static/**", "/perform-login", "/register").permitAll()
+                .authorizeRequests().antMatchers("/fa-all.js", "/bulma.min.css", "/style.css", "/static/**", "/perform-login", "/register").permitAll()
                 .and()
-                .authorizeRequests().antMatchers("/**").fullyAuthenticated()
+                .authorizeRequests().antMatchers("/clients/**", "/orders/**","/complaints/**", "/files/**", "/dashboard").fullyAuthenticated()
+                .and()
+                .authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN")
                 .and()
                 .formLogin().loginPage("/login").permitAll();
+
     }
 }
 

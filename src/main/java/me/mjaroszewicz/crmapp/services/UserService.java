@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -50,6 +51,10 @@ public class UserService {
         user.setActive(false);
 
         Set<String> permissions = new HashSet<>(Arrays.asList(DEFAULT_ROLES));
+
+        if(user.getUsername().equals("admin"))
+            permissions.add("ROLE_ADMIN");
+
         user.setPermissions(permissions);
 
         log.info("User " + user.getUsername() + " registered");
@@ -60,7 +65,6 @@ public class UserService {
     @PostConstruct
     private void init() throws RegistrationException{
         User user = registerNewUser(new UserRegistrationDto("admin", "admin", "admin@admin.com"));
-        user.setActive(true);
 
     }
 

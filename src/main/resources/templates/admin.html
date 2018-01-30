@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Application</title>
+      <link rel="stylesheet" href="/bulma.min.css"/>
+      <link rel="stylesheet" href="style.css"/>
+      <script src="fa-all.js"></script>
+  </head>
+  <body>
+
+
+
+  <section th:replace="fragments/header :: header"></section>
+
+
+  <div class="container">
+      <div th:replace="fragments/navigation :: navigation"></div>
+
+  </div>
+
+
+
+
+
+  <div class="container main">
+
+      <div th:replace="fragments/notifications :: messages(messages=${messages})"></div>
+      <div th:replace="fragments/notifications :: errors(errors=${errors})"></div>
+
+
+      <section class="section">
+          <h1 class="title">Management</h1>
+          <h1 class="subtitle">TODO</h1>
+
+      </section>
+
+
+  </div>
+
+
+
+  </body>
+</html>
