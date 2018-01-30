@@ -94,14 +94,4 @@ public class ComplaintService {
 
     }
 
-
-
-    @PostConstruct
-    private void init(){
-        List<Order> orders = orderRepository.findAll();
-        complaintRepository.save(new Complaint(1L, orders.get(0), Collections.emptyList(), "2018-01-01", "2018-01-22", "Dupa kamieni kupa", 0, true, "Foo"));
-    }
-
-
-
 }

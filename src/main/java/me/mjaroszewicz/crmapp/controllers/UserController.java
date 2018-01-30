@@ -41,7 +41,8 @@ public class UserController {
         if(err.hasErrors()){
             err.getAllErrors().forEach(e -> errors.add(e.getDefaultMessage()));
             mv.addObject("errors", errors);
-            return mv;
+            errors.forEach(e-> System.out.println(e));
+            return getRegistrationForm(mv);
         }
 
         try{
@@ -53,8 +54,8 @@ public class UserController {
             return mv;
         }
 
-        mv.setViewName("redirect:/dashboard");
-        return mv;
+        mv.setViewName("redirect:/login");
+        return getRegistrationForm(mv);
     }
 
 }

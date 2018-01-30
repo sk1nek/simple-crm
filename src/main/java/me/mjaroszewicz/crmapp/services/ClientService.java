@@ -54,11 +54,4 @@ public class ClientService {
         log.debug("Saved new client: " + client);
     }
 
-    @PostConstruct
-    private void init() {
-        clientRepository.save(new Client(1L, "Thomas", "Ipsum", "Ipsum street 23", "589671453", "thomas@google.com", System.currentTimeMillis()));
-        clientRepository.save(new Client(2L, "Martin", "Lorem", "Ipsum street 73", "593012583", "martin@martin.com", System.currentTimeMillis()));
-        clientRepository.findAll().forEach(e -> System.out.println(e.toString()));
-
-    }
 }

@@ -19,11 +19,12 @@
                 Enter your credentials
             </h2>
 
-            <form action="#" th:action="@{/perform-login}" method="post" th:object="${user}">
+            <form action="#" th:action="@{/register}" method="post" th:object="${user}">
                 <div class="field credentials-input">
                     <p class="control has-icons-left has-icons-right">
                         <input class="input" type="text" th:field="*{username}" placeholder="Username"/>
-                        <span class="icon is-small is-left is-dark">
+                        <span class="
+                        icon is-small is-left is-dark">
                         <i class="fas fa-user"></i>
                     </span>
                     </p>

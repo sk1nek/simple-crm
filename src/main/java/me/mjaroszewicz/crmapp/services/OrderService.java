@@ -76,13 +76,4 @@ public class OrderService {
 
     }
 
-    @PostConstruct
-    private void init(){
-
-        List<Client> clients = clientRepository.findAll();
-
-        orderRepository.save(new Order(1, "Chairs", "Lorem ipsum", 5000, clients.get(0), "2018-01-01", "2018-01-24"));
-        orderRepository.save(new Order(0, "Tables", "Foo bar ipsum", 2458, clients.get(1), "2018-01-05", "2018-01-21"));
-    }
-
 }

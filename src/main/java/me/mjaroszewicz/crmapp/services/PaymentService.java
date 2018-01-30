@@ -61,19 +61,4 @@ public class PaymentService {
 
 
 
-    @PostConstruct
-    private void init(){
-        Order order = orderRepository.findAll().get(0);
-
-        addPaymentToOrder(order, new Payment(300d, "Lorem", System.currentTimeMillis()));
-
-        order = orderRepository.findAll().get(1);
-
-        addPaymentToOrder(order, new Payment(500d, "Ipsum", System.currentTimeMillis()));
-
-        order = orderRepository.findAll().get(0);
-        addPaymentToOrder(order, new Payment(700d, "Foo", System.currentTimeMillis()));
-    }
-
-
 }

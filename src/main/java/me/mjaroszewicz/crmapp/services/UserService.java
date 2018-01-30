@@ -89,9 +89,6 @@ public class UserService {
 
         Set<String> permissions = new HashSet<>(Arrays.asList(DEFAULT_ROLES));
 
-        if(user.getUsername().equals("admin"))
-            permissions.add("ROLE_ADMIN");
-
         user.setPermissions(permissions);
 
         log.info("User " + user.getUsername() + " registered");
@@ -99,11 +96,6 @@ public class UserService {
         return userRepo.save(user);
     }
 
-    @PostConstruct
-    private void init() throws RegistrationException{
-        User user = registerNewUser(new UserRegistrationDto("admin", "admin", "admin@admin.com"));
-
-    }
 
 
 
