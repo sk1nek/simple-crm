@@ -1,6 +1,7 @@
 package me.mjaroszewicz.crmapp.entities;
 
 import lombok.*;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -30,7 +31,7 @@ public class User {
     @ElementCollection(targetClass = String.class)
     private Set<String> permissions;
 
-    private boolean active;
-
+    @Type(type = "yes_no")
+    private boolean isActive;
 
 }

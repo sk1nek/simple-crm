@@ -11,8 +11,6 @@
 </head>
 <body>
 
-
-
 <section th:replace="fragments/header :: header"></section>
 
 
@@ -26,31 +24,36 @@
         <div th:replace="fragments/notifications :: messages(messages=${messages})"></div>
         <div th:replace="fragments/notifications :: errors(errors=${errors})"></div>
 
-        <h1 class="title">Orders</h1>
+        <h1 class="title">User management</h1>
 
         <table class="table is-hoverable is-fullwidth">
             <thead>
             <th>Id</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Address</th>
+            <th>Username</th>
+            <th>E-mail</th>
             <th>Phone</th>
-            <th>Email</th>
-
+            <th>Active?</th>
+            <th>Permissions</th>
+            <th>Controls</th>
             </thead>
 
             <tbody>
 
-            <th:block th:each="client: ${clients}">
-                <tr th:onclick="'window.location.href = \'' + @{/clients/{id}(id=${client.id})} + '\''">
-
-                    <th th:text="${client.id}"></th>
-                    <td th:text="${client.name}"></td>
-                    <td th:text="${client.description}"></td>
-                    <td th:text="${client.address}"></td>
-                    <td th:text="${client.phone}"></td>
-                    <td th:text="${client.email}"></td>
-                </tr>
+            <!--/*@thymesVar id="user" type="me.mjaroszewicz.crmapp.entities.User"*/-->
+            <th:block th:each="user : ${users}">
+                <th th:text="${user.id}"></th>
+                <td th:text="${user.username}"></td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.phone}"></td>
+                <td>
+                    <p th:text="${user.isActive()}"></p>
+                </td>
+                <td>
+                    <th:block th:each="p : ${user.permissions}">
+                        <p th:text="${p}"></p>
+                    </th:block>
+                </td>
+                <td>Buttons here</td>
 
             </th:block>
 
@@ -61,22 +64,6 @@
 
 
 </div>
-
-<div class="modal">
-    <div class="modal-background">
-    </div>
-
-    <div class="modal-content">
-        <div class="box">
-            <p>Content</p>
-        </div>
-    </div>
-
-
-    <button class="modal-close is-large" aria-label="close"></button>
-</div>
-
-
 
 
 <footer th:replace="fragments/footer :: footer"></footer>
