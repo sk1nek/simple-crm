@@ -22,7 +22,14 @@
 
 
 
+
+
   <div class="container main">
+
+      <div th:replace="fragments/notifications :: messages(messages=${messages})"></div>
+      <div th:replace="fragments/notifications :: errors(errors=${errors})"></div>
+
+
       <section class="section">
           <h1 class="title">Important data</h1>
       <nav class="level">

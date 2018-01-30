@@ -23,6 +23,9 @@
   <div class="container main">
       <section class="section">
 
+          <div th:replace="fragments/notifications :: messages(messages=${messages})"></div>
+          <div th:replace="fragments/notifications :: errors(errors=${errors})"></div>
+
           <h1 class="title">New order</h1>
 
           <form action="#" th:action="@{/orders/new}" th:object="${orderdto}" method="post">

@@ -23,6 +23,9 @@
   <div class="container main">
       <section class="section">
 
+          <div th:replace="fragments/notifications :: messages(messages=${messages})"></div>
+          <div th:replace="fragments/notifications :: errors(errors=${errors})"></div>
+
           <h1 class="title">New complaint</h1>
 
           <form action="#" enctype="multipart/form-data" th:action="@{/complaints/new}" th:object="${complaint}" method="post">
