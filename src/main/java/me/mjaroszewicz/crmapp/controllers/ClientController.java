@@ -10,7 +10,10 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.Collections;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Controller
 @RequestMapping("/clients")
@@ -43,10 +46,17 @@ public class ClientController {
     }
 
     @PostMapping("/new")
-    public ModelAndView addNewClient(@ValidClient @ModelAttribute ClientDto clientDto, ModelAndView mv, Errors err){
+    public ModelAndView addNewClient(@Valid @ModelAttribute ClientDto clientDto, ModelAndView mv, Errors err){
 
         if(err.hasErrors()){
-            mv.addObject("errors", err.getAllErrors());
+            mv.addObject("errors",
+                    err
+                            .getAllErrors()
+                            .stream()
+                            .flatMap(p -> Stream.of(p.getDefaultMessage()))
+                            .distinct()
+                            .collect(Collectors.toList()));
+
             return getClientsListing(mv);
         }
 

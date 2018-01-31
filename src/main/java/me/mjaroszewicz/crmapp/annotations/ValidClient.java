@@ -8,7 +8,7 @@ import java.lang.annotation.*;
 
 @Documented
 @Constraint(validatedBy = ClientDtoValidator.class)
-@Target({ElementType.METHOD, ElementType.PARAMETER})
+@Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidClient {
 
