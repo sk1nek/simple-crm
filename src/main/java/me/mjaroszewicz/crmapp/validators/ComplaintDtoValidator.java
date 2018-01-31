@@ -17,8 +17,6 @@ public class ComplaintDtoValidator implements ConstraintValidator<ValidComplaint
     @Override
     public boolean isValid(ComplaintDto value, ConstraintValidatorContext context) {
 
-        System.out.println("dupa");
-
         boolean validId = value.getOrderId() > 0;
 
         boolean validDeadline = value.getDeadline() != null && value.getDeadline().matches("\\d{4}.\\d{2}.\\d{2}");

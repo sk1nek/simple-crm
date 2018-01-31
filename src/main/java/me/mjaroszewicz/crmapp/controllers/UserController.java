@@ -45,7 +45,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ModelAndView handleRegister(ModelAndView mv, @ValidUserRegistration UserRegistrationDto user, Errors err){
+    public ModelAndView handleRegister(ModelAndView mv, @Valid UserRegistrationDto user, Errors err){
 
         mv.setViewName("register");
         List<String> errors = new ArrayList<>();

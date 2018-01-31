@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
+
 @Controller
 public class LoginController {
 
@@ -28,7 +30,7 @@ public class LoginController {
     }
 
     @PostMapping("/perform-login")
-    public String handleLogin(@ValidLoginDto LoginDto user, Errors err) {
+    public String handleLogin(@Valid LoginDto user, Errors err) {
 
         if(err.hasErrors())
             return "redirect:/login?error";

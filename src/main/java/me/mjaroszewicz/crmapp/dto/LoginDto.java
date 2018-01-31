@@ -1,15 +1,15 @@
 package me.mjaroszewicz.crmapp.dto;
 
 import lombok.Data;
+import me.mjaroszewicz.crmapp.annotations.ValidLoginDto;
 
 import javax.validation.constraints.NotNull;
 
 @Data
+@ValidLoginDto
 public class LoginDto {
 
-    @NotNull
     private String username;
 
-    @NotNull
     private String password;
 }
