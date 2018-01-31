@@ -10,11 +10,7 @@
   </head>
   <body>
 
-
-
   <section th:replace="fragments/header :: header"></section>
-
-
 
   <div class="container">
       <div th:replace="fragments/navigation :: navigation"></div>
@@ -27,10 +23,6 @@
           <div th:replace="fragments/notifications :: errors(errors=${errors})"></div>
 
           <h1 class="title">Your account</h1>
-
-          <th:block th:each="error: ${errors}">
-              <p th:text="${error}"></p>
-          </th:block>
 
           <!--/*@thymesVar id="user" type="me.mjaroszewicz.crmapp.entities.User"*/-->
           <table class="table is-fullwidth is-hoverable">
@@ -76,7 +68,22 @@
 
                       </form>
                   </td>
+              </tr>
 
+              <tr>
+                  <th>Change password</th>
+                  <td>
+                      <form class="field has-addons" th:action="@{/user/changepassword}" method="post">
+
+                          <div class="control">
+                              <input class="input" placeholder="Password" name="phone" type="password"/>
+                          </div>
+                          <div class="control">
+                              <input type="submit" value="Change" name="password" class="button is-link"/>
+                          </div>
+
+                      </form>
+                  </td>
               </tr>
 
               </tbody>

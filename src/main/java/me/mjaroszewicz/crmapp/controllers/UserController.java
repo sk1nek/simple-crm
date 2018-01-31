@@ -6,6 +6,7 @@ import me.mjaroszewicz.crmapp.exceptions.RegistrationException;
 import me.mjaroszewicz.crmapp.services.SecurityService;
 import me.mjaroszewicz.crmapp.services.UserService;
 import me.mjaroszewicz.crmapp.validators.EmailValidator;
+import me.mjaroszewicz.crmapp.validators.PasswordValidator;
 import me.mjaroszewicz.crmapp.validators.PhoneNumberValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -104,6 +105,23 @@ public class UserController {
         }
 
         userService.changePhoneNumber(phone);
+
+        mv.addObject("messages", Collections.singletonList("Success!"));
+
+        return getUserAccountDetails(mv);
+    }
+
+    @PostMapping("/user/changepassword")
+    public ModelAndView handlePasswordChange(ModelAndView mv, @RequestParam String password){
+
+        PasswordValidator pv = new PasswordValidator();
+
+        if(!pv.isValid(password, null)){
+            mv.addObject("errors", Collections.singletonList("Password didn't match required criteria. "));
+            return getUserAccountDetails(mv);
+        }
+
+        userService.changePassword(password);
 
         mv.addObject("messages", Collections.singletonList("Success!"));
 

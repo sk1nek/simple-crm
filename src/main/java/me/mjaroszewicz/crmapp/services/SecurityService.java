@@ -23,6 +23,7 @@ public class SecurityService {
     @Autowired
     private UserRepository userRepository;
 
+
     public User getCurrentUser(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return userRepository.findOneByUsername(auth.getName());

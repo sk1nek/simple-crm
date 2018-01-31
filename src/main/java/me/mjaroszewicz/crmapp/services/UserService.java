@@ -67,6 +67,15 @@ public class UserService {
         userRepo.save(user);
     }
 
+    @Transactional
+    public void changePassword(String newPassword){
+        User user = getCurrentUser();
+
+        user.setPassword(passwordEncoder().encode(newPassword));
+
+        userRepo.save(user);
+    }
+
     /**
      *
      * @param id target user id
@@ -149,6 +158,12 @@ public class UserService {
     private String getCurrentUsername(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return auth.getName();
+    }
+
+    private User getCurrentUser(){
+
+        return userRepo.findOneByUsername(getCurrentUsername());
+
     }
 
 
