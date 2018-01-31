@@ -18,11 +18,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
+                .exceptionHandling().accessDeniedPage("/denied")
+                .and()
                 .securityContext().securityContextRepository(new SecurityAnalyzerSecurityContextRepository(securityAnalyzer))
                 .and()
                 .authorizeRequests().antMatchers("/fa-all.js", "/bulma.min.css", "/style.css", "/static/**", "/perform-login", "/register").permitAll()
                 .and()
-                .authorizeRequests().antMatchers("/clients/**", "/orders/**","/complaints/**", "/files/**", "/dashboard", "/account", "/user/**").fullyAuthenticated()
+                .authorizeRequests().antMatchers("/clients/**", "/orders/**", "/complaints/**", "/files/**", "/dashboard", "/account", "/user/**").fullyAuthenticated()
                 .and()
                 .authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN")
                 .and()
