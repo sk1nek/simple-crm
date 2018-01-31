@@ -1,21 +1,23 @@
 package me.mjaroszewicz.crmapp.validators;
 
-import me.mjaroszewicz.crmapp.annotations.ValidComplaint;
+import me.mjaroszewicz.crmapp.annotations.ValidComplaintDto;
 import me.mjaroszewicz.crmapp.dto.ComplaintDto;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class ComplaintDtoValidator implements ConstraintValidator<ValidComplaint, ComplaintDto> {
+public class ComplaintDtoValidator implements ConstraintValidator<ValidComplaintDto, ComplaintDto> {
 
 
     @Override
-    public void initialize(ValidComplaint constraintAnnotation) {
+    public void initialize(ValidComplaintDto constraintAnnotation) {
 
     }
 
     @Override
     public boolean isValid(ComplaintDto value, ConstraintValidatorContext context) {
+
+        System.out.println("dupa");
 
         boolean validId = value.getOrderId() > 0;
 

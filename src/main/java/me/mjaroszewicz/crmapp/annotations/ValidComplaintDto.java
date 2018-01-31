@@ -9,9 +9,9 @@ import java.lang.annotation.*;
 
 @Documented
 @Constraint(validatedBy = ComplaintDtoValidator.class)
-@Target({ElementType.METHOD, ElementType.PARAMETER})
+@Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ValidComplaint {
+public @interface ValidComplaintDto {
 
     String message() default "Provided data do not match required criteria.";
     Class<?>[] groups() default {};

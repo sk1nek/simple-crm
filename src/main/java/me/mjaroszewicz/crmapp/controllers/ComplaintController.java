@@ -13,6 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Controller
 @RequestMapping("/complaints")
@@ -63,7 +65,12 @@ public class ComplaintController {
 
 
         if(err.hasErrors()){
-            mv.addObject("errors", err.getAllErrors());
+            mv.addObject("errors", err.getAllErrors()
+                    .stream()
+                    .flatMap(p -> Stream.of(p.getDefaultMessage()))
+                    .distinct()
+                    .collect(Collectors.toList()));
+
             return getComplaintListing(mv);
         }
 
