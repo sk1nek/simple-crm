@@ -2,8 +2,11 @@ package me.mjaroszewicz.crmapp.controllers;
 
 import me.mjaroszewicz.crmapp.annotations.ValidUserRegistration;
 import me.mjaroszewicz.crmapp.dto.UserRegistrationDto;
+import me.mjaroszewicz.crmapp.entities.User;
 import me.mjaroszewicz.crmapp.exceptions.RegistrationException;
+import me.mjaroszewicz.crmapp.services.SecurityService;
 import me.mjaroszewicz.crmapp.services.UserService;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
@@ -21,6 +24,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private SecurityService securityService;
 
     @GetMapping("/register")
     public ModelAndView getRegistrationForm(ModelAndView mv){
@@ -56,6 +62,17 @@ public class UserController {
 
         mv.setViewName("redirect:/login");
         return getRegistrationForm(mv);
+    }
+
+    @GetMapping("/account")
+    public ModelAndView getUserAccountDetails(ModelAndView mv){
+
+        mv.setViewName("accountdetails");
+
+        User user = securityService.getCurrentUser();
+        mv.addObject("user", user);
+
+        return mv;
     }
 
 }

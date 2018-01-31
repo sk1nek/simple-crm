@@ -13,7 +13,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests().antMatchers("/fa-all.js", "/bulma.min.css", "/style.css", "/static/**", "/perform-login", "/register").permitAll()
                 .and()
-                .authorizeRequests().antMatchers("/clients/**", "/orders/**","/complaints/**", "/files/**", "/dashboard").fullyAuthenticated()
+                .authorizeRequests().antMatchers("/clients/**", "/orders/**","/complaints/**", "/files/**", "/dashboard", "/account").fullyAuthenticated()
                 .and()
                 .authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN")
                 .and()
