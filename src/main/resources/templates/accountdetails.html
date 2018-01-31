@@ -58,15 +58,24 @@
                               </div>
 
                           </form>
-
-
                   </td>
 
               </tr>
 
               <tr>
                   <th>Phone</th>
-                  <td th:text="${user.phone}"></td>
+                  <td>
+                      <form class="field has-addons" th:action="@{/user/changephone}" method="post">
+
+                          <div class="control">
+                              <input class="input" th:value="${user.phone}" name="phone" type="text"/>
+                          </div>
+                          <div class="control">
+                              <input type="submit" value="Change" class="button is-link"/>
+                          </div>
+
+                      </form>
+                  </td>
 
               </tr>
 

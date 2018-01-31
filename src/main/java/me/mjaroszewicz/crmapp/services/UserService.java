@@ -111,6 +111,17 @@ public class UserService {
     }
 
     @Transactional
+    public void changePhoneNumber(String phone){
+        String username = getCurrentUsername();
+
+        User user = userRepo.findOneByUsername(username);
+
+        user.setPhone(phone);
+
+        userRepo.save(user);
+    }
+
+    @Transactional
     public User registerNewUser(UserRegistrationDto dto) throws RegistrationException{
 
         if(userRepo.findOneByEmail(dto.getEmail()) != null)

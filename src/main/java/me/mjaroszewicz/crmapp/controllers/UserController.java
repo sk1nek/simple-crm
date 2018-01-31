@@ -1,22 +1,17 @@
 package me.mjaroszewicz.crmapp.controllers;
 
-import me.mjaroszewicz.crmapp.annotations.ValidEmail;
-import me.mjaroszewicz.crmapp.annotations.ValidUserRegistration;
 import me.mjaroszewicz.crmapp.dto.UserRegistrationDto;
 import me.mjaroszewicz.crmapp.entities.User;
 import me.mjaroszewicz.crmapp.exceptions.RegistrationException;
 import me.mjaroszewicz.crmapp.services.SecurityService;
 import me.mjaroszewicz.crmapp.services.UserService;
 import me.mjaroszewicz.crmapp.validators.EmailValidator;
-import org.apache.catalina.servlet4preview.http.HttpServletRequest;
+import me.mjaroszewicz.crmapp.validators.PhoneNumberValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -84,13 +79,31 @@ public class UserController {
     @PostMapping("/user/changemail")
     public ModelAndView handleMailChange(ModelAndView mv, @RequestParam String email){
 
-
         EmailValidator ev = new EmailValidator();
 
         if (!ev.isValid(email, null)) {
             mv.addObject("errors", Collections.singletonList("Invalid email."));
             return getUserAccountDetails(mv);
         }
+
+        userService.changeEmail(email);
+
+        mv.addObject("messages", Collections.singletonList("Success!"));
+
+        return getUserAccountDetails(mv);
+    }
+
+    @PostMapping("/user/changephone")
+    public ModelAndView handlePhoneChange(ModelAndView mv, @RequestParam String phone){
+
+        PhoneNumberValidator pv = new PhoneNumberValidator();
+
+        if(!pv.isValid(phone, null)){
+            mv.addObject("errors", Collections.singletonList("Invalid phone number. "));
+            return getUserAccountDetails(mv);
+        }
+
+        userService.changePhoneNumber(phone);
 
         mv.addObject("messages", Collections.singletonList("Success!"));
 
