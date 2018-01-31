@@ -33,7 +33,7 @@
           </th:block>
 
           <!--/*@thymesVar id="user" type="me.mjaroszewicz.crmapp.entities.User"*/-->
-          <table class="table is-hoverable">
+          <table class="table is-fullwidth is-hoverable">
               <thead>
               <th>Param</th>
               <th>Value</th>
@@ -47,12 +47,27 @@
 
               <tr>
                   <th>Email</th>
-                  <td th:text="${user.email}"></td>
+                  <td>
+                          <form class="field has-addons" th:action="@{/user/changemail}"  method="post">
+
+                              <div class="control">
+                                  <input class="input" th:value="${user.email}" name="email" type="email"/>
+                              </div>
+                              <div class="control">
+                                  <input type="submit" value="Change" class="button is-link"/>
+                              </div>
+
+                          </form>
+
+
+                  </td>
+
               </tr>
 
               <tr>
                   <th>Phone</th>
                   <td th:text="${user.phone}"></td>
+
               </tr>
 
               </tbody>

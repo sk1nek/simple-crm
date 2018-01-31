@@ -99,6 +99,18 @@ public class UserService {
     }
 
     @Transactional
+    public void changeEmail(String email){
+
+        String username = getCurrentUsername();
+
+        User user = userRepo.findOneByUsername(username);
+
+        user.setEmail(email);
+
+        userRepo.save(user);
+    }
+
+    @Transactional
     public User registerNewUser(UserRegistrationDto dto) throws RegistrationException{
 
         if(userRepo.findOneByEmail(dto.getEmail()) != null)
@@ -121,6 +133,11 @@ public class UserService {
         log.info("User " + user.getUsername() + " registered");
 
         return userRepo.save(user);
+    }
+
+    private String getCurrentUsername(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return auth.getName();
     }
 
 

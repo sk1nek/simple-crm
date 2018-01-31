@@ -1,20 +1,26 @@
 package me.mjaroszewicz.crmapp.controllers;
 
+import me.mjaroszewicz.crmapp.annotations.ValidEmail;
 import me.mjaroszewicz.crmapp.annotations.ValidUserRegistration;
 import me.mjaroszewicz.crmapp.dto.UserRegistrationDto;
 import me.mjaroszewicz.crmapp.entities.User;
 import me.mjaroszewicz.crmapp.exceptions.RegistrationException;
 import me.mjaroszewicz.crmapp.services.SecurityService;
 import me.mjaroszewicz.crmapp.services.UserService;
+import me.mjaroszewicz.crmapp.validators.EmailValidator;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -73,6 +79,22 @@ public class UserController {
         mv.addObject("user", user);
 
         return mv;
+    }
+
+    @PostMapping("/user/changemail")
+    public ModelAndView handleMailChange(ModelAndView mv, @RequestParam String email){
+
+
+        EmailValidator ev = new EmailValidator();
+
+        if (!ev.isValid(email, null)) {
+            mv.addObject("errors", Collections.singletonList("Invalid email."));
+            return getUserAccountDetails(mv);
+        }
+
+        mv.addObject("messages", Collections.singletonList("Success!"));
+
+        return getUserAccountDetails(mv);
     }
 
 }

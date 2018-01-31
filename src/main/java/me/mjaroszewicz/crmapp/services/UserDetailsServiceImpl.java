@@ -33,8 +33,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         user.getPermissions().forEach(e -> grantedAuthorities.add(new SimpleGrantedAuthority(e)));
 
-        System.out.println("Loading user " + user.toString());
-
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
                 user.getPassword(),
