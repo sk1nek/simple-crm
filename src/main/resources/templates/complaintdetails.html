@@ -20,13 +20,15 @@
       <div th:replace="fragments/navigation :: navigation"></div>
   </div>
 
+  <!--/*@thymesVar id="complaint" type="me.mjaroszewicz.crmapp.entities.Complaint"*/-->
+
   <div class="container main">
       <section class="section">
 
           <div th:replace="fragments/notifications :: messages(messages=${messages})"></div>
           <div th:replace="fragments/notifications :: errors(errors=${errors})"></div>
 
-          <h1 class="title">Order</h1>
+          <h1 class="title">Complaint</h1>
 
           <th:block th:each="error: ${errors}">
               <p th:text="${error}"></p>
@@ -77,14 +79,32 @@
               </tbody>
           </table>
 
+
+
+          <div class="field">
+              <!--/*@thymesVar id="statusdto" type="me.mjaroszewicz.crmapp.dto.StatusChangeDto"*/-->
+              <form action="#" class="field has-addons"
+                    th:action="@{/complaints/change/state}" method="post">
+                  <input style="display: none" name="id" th:value="${complaint.id}"/>
+                  <div class="control">
+                      <select class="input"  name="state">
+                          <option value="-1" th:text="'Accepted'"></option>
+                          <option value="0" th:text="'In Production'"></option>
+                          <option value="1" th:text="'Realized'"></option>
+                      </select>
+                  </div>
+                  <div class="control">
+                      <input type="submit" class="button is-link" value="Change Status"/>
+                  </div>
+              </form>
+
+          </div>
+
           <div class="field">
               <div class="control">
                   <a class="button is-link" th:href="@{/complaints/delete/{id}(id=${complaint.id})}">Delete</a>
               </div>
           </div>
-
-
-
 
       </section>
   </div>

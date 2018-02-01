@@ -4,6 +4,7 @@ import me.mjaroszewicz.crmapp.dto.ComplaintDto;
 import me.mjaroszewicz.crmapp.entities.Complaint;
 import me.mjaroszewicz.crmapp.entities.Order;
 import me.mjaroszewicz.crmapp.exceptions.ComplaintSubmitException;
+import me.mjaroszewicz.crmapp.exceptions.StatusChangeException;
 import me.mjaroszewicz.crmapp.repositories.ComplaintRepository;
 import me.mjaroszewicz.crmapp.repositories.OrderRepository;
 import org.slf4j.Logger;
@@ -92,6 +93,20 @@ public class ComplaintService {
         }
 
 
+    }
+
+    public void changeComplaintStatus(Long id, int status) throws StatusChangeException{
+
+        if(status > 1 || status < -1)
+            throw new StatusChangeException("Invalid status code: " + status);
+
+        Complaint complaint = findComplaint(id);
+
+        if(complaint == null)
+            throw new StatusChangeException("Invalid id: " + id.toString());
+
+        complaint.setState(status);
+        complaintRepository.save(complaint);
     }
 
 }
