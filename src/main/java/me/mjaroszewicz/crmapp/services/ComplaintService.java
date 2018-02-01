@@ -75,10 +75,16 @@ public class ComplaintService {
         Long id = complaintRepository.save(complaint).getId();
         log.info("Complaint registered: " + complaint.toString());
 
-        if(dto.getFiles() != null){
+        if(dto.getFiles() != null && dto.getFiles().size() > 0){
             List<String> filenames = new ArrayList<>();
 
             for(MultipartFile f: dto.getFiles()){
+
+                //some browsers attach empty file if user didn't add any files in form
+                //below instruction should prevent that
+                if(f.isEmpty())
+                    continue;
+
                 try{
                     filenames.add(fileStorageService.storeFile(f, Complaint.class, id));
                 }catch (Throwable t){
