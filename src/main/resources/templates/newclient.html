@@ -10,11 +10,7 @@
   </head>
   <body>
 
-
-
   <section th:replace="fragments/header :: header"></section>
-
-
 
   <div class="container">
       <div th:replace="fragments/navigation :: navigation"></div>
@@ -24,10 +20,11 @@
       <section class="section">
 
 
+          <!--/*@thymesVar id="messages" type="java.util.List<String>"*/-->
           <div th:replace="fragments/notifications :: messages(messages=${messages})"></div>
+          <!--/*@thymesVar id="errors" type="java.util.List<String>"*/-->
           <div th:replace="fragments/notifications :: errors(errors=${errors})"></div>
-
-          <h1 class="title">New order</h1>
+          <h1 class="title">New client</h1>
 
           <form action="#" th:action="@{/clients/new}" th:object="${clientDto}" method="post">
               <div class="field">

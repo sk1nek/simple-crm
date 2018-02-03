@@ -26,9 +26,10 @@
 
   <div class="container main">
 
+      <!--/*@thymesVar id="messages" type="java.util.List<String>"*/-->
       <div th:replace="fragments/notifications :: messages(messages=${messages})"></div>
+      <!--/*@thymesVar id="errors" type="java.util.List<String>"*/-->
       <div th:replace="fragments/notifications :: errors(errors=${errors})"></div>
-
 
       <section class="section">
           <h1 class="title">Important data</h1>

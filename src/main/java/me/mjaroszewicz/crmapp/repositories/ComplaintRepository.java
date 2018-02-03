@@ -9,9 +9,9 @@ import java.util.List;
 @Repository
 public interface ComplaintRepository extends CrudRepository<Complaint, Long> {
 
-    public List<Complaint> findAll();
+    List<Complaint> findAll();
 
-    public List<Complaint> findFirst3ByOrderByDateDeadline();
+    List<Complaint> findFirst3ByOrderByDateDeadline();
 
 
 }

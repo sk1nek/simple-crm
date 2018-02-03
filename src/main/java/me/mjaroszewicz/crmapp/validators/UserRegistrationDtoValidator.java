@@ -26,10 +26,7 @@ public class UserRegistrationDtoValidator implements ConstraintValidator<ValidUs
         if(!value.getPassword().matches("^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9\\s]).{6,}"))
             return false;
 
-        if(!value.getEmail().matches(EMAIL_REGEX))
-            return false;
-
-        return true;
+        return value.getEmail().matches(EMAIL_REGEX);
     }
 
 }

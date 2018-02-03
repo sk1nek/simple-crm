@@ -21,9 +21,10 @@
 
     <section class="section">
 
+        <!--/*@thymesVar id="messages" type="java.util.List<String>"*/-->
         <div th:replace="fragments/notifications :: messages(messages=${messages})"></div>
+        <!--/*@thymesVar id="errors" type="java.util.List<String>"*/-->
         <div th:replace="fragments/notifications :: errors(errors=${errors})"></div>
-
         <h1 class="title">User management</h1>
 
         <table class="table is-hoverable is-fullwidth">

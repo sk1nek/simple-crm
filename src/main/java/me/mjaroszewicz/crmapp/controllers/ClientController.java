@@ -1,6 +1,5 @@
 package me.mjaroszewicz.crmapp.controllers;
 
-import me.mjaroszewicz.crmapp.annotations.ValidClient;
 import me.mjaroszewicz.crmapp.dto.ClientDto;
 import me.mjaroszewicz.crmapp.entities.Client;
 import me.mjaroszewicz.crmapp.services.ClientService;
@@ -66,7 +65,7 @@ public class ClientController {
 
         mv.addObject("messages", Collections.singletonList("Success!"));
 
-        return mv;
+        return getClientsListing(mv);
     }
 
     @GetMapping("/{id}")
