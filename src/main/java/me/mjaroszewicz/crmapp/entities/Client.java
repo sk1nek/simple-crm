@@ -1,6 +1,7 @@
 package me.mjaroszewicz.crmapp.entities;
 
 import lombok.*;
+import me.mjaroszewicz.crmapp.dto.ClientDto;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -34,5 +35,9 @@ public class Client {
 
     @NonNull
     private long dateCreatedMilis;
+
+    public ClientDto getDto(){
+        return new ClientDto(name, description, address, phone, email);
+    }
 
 }

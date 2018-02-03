@@ -2,11 +2,13 @@ package me.mjaroszewicz.crmapp.controllers;
 
 import me.mjaroszewicz.crmapp.annotations.ValidClient;
 import me.mjaroszewicz.crmapp.dto.ClientDto;
+import me.mjaroszewicz.crmapp.entities.Client;
 import me.mjaroszewicz.crmapp.services.ClientService;
 import me.mjaroszewicz.crmapp.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -76,5 +78,38 @@ public class ClientController {
         mv.addObject("client", clientService.getClient(id));
 
         return mv;
+    }
+
+    @GetMapping("/edit/{id}")
+    public ModelAndView getEditClientForm(ModelAndView mv, @PathVariable("id") Long id) {
+
+        mv.setViewName("editclient");
+
+        Client client = clientService.getClient(id);
+        mv.addObject("client", client.getDto());
+        mv.addObject("clientid", id);
+
+        return mv;
+    }
+
+    @PostMapping("/edit/{id}")
+    public ModelAndView handleClientEdit(ModelAndView mv, @Valid ClientDto dto, @PathVariable Long id,  Errors errors) {
+
+        if(errors.hasErrors()){
+
+            mv.addObject("errors", errors
+                    .getAllErrors()
+                    .stream()
+                    .map(ObjectError::toString)
+                    .collect(Collectors.toList()));
+
+            return getEditClientForm(mv, id);
+        }
+
+        clientService.updateClient(dto, id);
+
+        mv.addObject("messages", Collections.singletonList("Success!"));
+
+        return getClientsListing(mv);
     }
 }

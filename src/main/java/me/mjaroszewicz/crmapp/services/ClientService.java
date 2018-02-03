@@ -54,4 +54,17 @@ public class ClientService {
         log.debug("Saved new client: " + client);
     }
 
+    public void updateClient(ClientDto dto, Long id){
+
+        Client client = getClient(id);
+
+        client.setName(dto.getName());
+        client.setDescription(dto.getDescription());
+        client.setAddress(dto.getAddress());
+        client.setPhone(dto.getPhone());
+        client.setEmail(dto.getEmail());
+
+        clientRepository.save(client);
+    }
+
 }
