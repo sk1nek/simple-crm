@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Hello Bulma!</title>
+      <link rel="stylesheet" href="/bulma.min.css"/>
+      <link rel="stylesheet" href="/style.css"/>
+      <script src="fa-all.js"></script>
+  </head>
+  <body>
+
+  <section th:replace="fragments/header :: header"></section>
+
+  <div class="container">
+      <div th:replace="fragments/navigation :: navigation"></div>
+  </div>
+
+  <div class="container main">
+      <section class="section">
+
+          <div th:replace="fragments/notifications :: messages(messages=${messages})"></div>
+          <div th:replace="fragments/notifications :: errors(errors=${errors})"></div>
+
+          <h1 class="title">Edit order</h1>
+
+          <!--/*@thymesVar id="orderid" type="java.lang.Long"*/-->
+          <!--/*@thymesVar id="order" type="me.mjaroszewicz.crmapp.dto.OrderDto"*/-->
+          <form class="form" method="post" th:object="${order}" action="#" th:action="@{/orders/edit/{id}(id=${orderid})}">
+
+              <div class="field">
+                  <label class="label">Id</label>
+                  <div class="control">
+                      <!--/*@thymesVar id="orderid" type="java.lang.Long"*/-->
+                      <input class="input" type="text" disabled="disabled" th:value="${orderid}"/>
+                  </div>
+              </div>
+
+              <div class="field">
+                  <label class="label">Name</label>
+                  <div class="control">
+                      <input class="input" type="text"  th:field="${order.orderName}"/>
+                  </div>
+              </div>
+
+
+              <div class="field">
+                  <label class="label">Description</label>
+                  <div class="control">
+                      <input class="input" type="text" th:field="${order.description}"/>
+                  </div>
+              </div>
+
+              <div class="field">
+                  <label class="label">Value</label>
+                  <div class="control">
+                      <input class="input" type="number" th:field="${order.value}"/>
+                  </div>
+              </div>
+
+              <div class="field">
+                  <label class="label">Deadline</label>
+                  <div class="control">
+                      <input class="input" type="date" th:field="${order.dateDeadline}"/>
+                  </div>
+              </div>
+
+              <div class="field">
+                  <div class="control">
+                      <input class="button is-link" type="submit" value="Submit"/>
+                  </div>
+              </div>
+
+
+          </form>
+
+
+
+
+
+
+      </section>
+  </div>
+
+  <footer th:replace="fragments/footer :: footer"></footer>
+
+
+  </body>
+</html>

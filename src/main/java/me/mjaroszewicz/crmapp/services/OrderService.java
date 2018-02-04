@@ -58,6 +58,19 @@ public class OrderService {
         orderRepository.save(order);
     }
 
+    public void updateOrder(OrderDto dto, Long id){
+
+        Order order = orderRepository.findOne(id);
+
+        order.setName(dto.getOrderName());
+        order.setValue(dto.getValue());
+        order.setDescription(dto.getDescription());
+        order.setDateDeadline(dto.getDateDeadline());
+
+        orderRepository.save(order);
+    }
+
+
     public Order getOrder(Long id){
         return orderRepository.findOne(id);
     }

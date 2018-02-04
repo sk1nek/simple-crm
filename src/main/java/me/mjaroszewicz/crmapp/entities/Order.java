@@ -1,6 +1,7 @@
 package me.mjaroszewicz.crmapp.entities;
 
 import lombok.*;
+import me.mjaroszewicz.crmapp.dto.OrderDto;
 
 import javax.persistence.*;
 import java.util.Collections;
@@ -42,7 +43,15 @@ public class Order {
 
     private double paymentPercentage;
 
+    public OrderDto getDto(){
+        OrderDto ret = new OrderDto();
 
+        ret.setClientId(getId());
+        ret.setDateDeadline(dateDeadline);
+        ret.setDescription(description);
+        ret.setOrderName(name);
+        ret.setValue(value);
 
-
+        return ret;
+    }
 }
