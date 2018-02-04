@@ -6,6 +6,9 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 
 @Data
 @Entity
@@ -29,5 +32,11 @@ public class Payment {
 
     @NonNull
     private long dateMilis;
+
+    public String getStringDate() {
+
+        LocalDateTime date = LocalDateTime.ofEpochSecond(dateMilis / 1000, 0, ZoneOffset.UTC);
+        return date.format(DateTimeFormatter.ISO_DATE_TIME);
+    }
 
 }

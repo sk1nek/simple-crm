@@ -11,5 +11,7 @@ public interface PaymentRepository extends CrudRepository<Payment, Long> {
 
     List<Payment> findFirst3ByOrderByDateMilisDesc();
 
+    List<Payment> findAll();
+
 
 }

@@ -52,7 +52,20 @@
             </div>
 
         </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link" th:href="@{/finance}">Finance</a>
+
+            <div class="navbar-dropdown">
+                <a class="navbar-item" th:href="@{/finance/payments}">Payments</a>
+                <a class="navbar-item" th:href="@{/finance/expenses}">Expenses</a>
+            </div>
+
+        </div>
     </div>
+
+
+
     <div class="navbar-end">
         <div class="navbar-item has-dropdown is-hoverable">
             <a class="navbar-link">Account</a>
@@ -65,6 +78,7 @@
 
         </div>
     </div>
+
 </nav>
 </div>
 

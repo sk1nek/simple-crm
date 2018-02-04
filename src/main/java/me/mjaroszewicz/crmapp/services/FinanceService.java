@@ -15,8 +15,8 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.util.List;
 
-@Service("paymentService")
-public class PaymentService {
+@Service("financeService")
+public class FinanceService {
 
     @Autowired
     private PaymentRepository paymentRepository;
@@ -57,6 +57,11 @@ public class PaymentService {
         orderRepository.save(order);
 //        paymentRepository.save(payment);
 
+    }
+
+    public List<Payment> getAllPayments() {
+
+        return paymentRepository.findAll();
     }
 
 
