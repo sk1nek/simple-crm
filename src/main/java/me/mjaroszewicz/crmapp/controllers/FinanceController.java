@@ -39,6 +39,7 @@ public class FinanceController {
 
         mv.setViewName("expenses");
 
+        mv.addObject("expenses", financeService.getAllExpenses());
 
         return mv;
     }

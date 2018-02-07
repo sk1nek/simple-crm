@@ -3,39 +3,38 @@ package me.mjaroszewicz.crmapp.entities;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 
-@Data
 @Entity
-//@Table(name = "payments")
+@Data
 @NoArgsConstructor
-@RequiredArgsConstructor
-public class Payment {
+public class Expense {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     @NonNull
-    private double amount;
+    private double value;
 
     @NonNull
     private String description;
 
-    @Column(name = "order_id")
-    private long parentOrderId;
-
     @NonNull
     private long dateMilis;
 
-    public String getStringDate() {
-
-        LocalDateTime date = LocalDateTime.ofEpochSecond(dateMilis / 1000, 0, ZoneOffset.UTC);
+    /**
+     *
+     * @return Creation date formatted in ISO format.
+     */
+    public String getStringDate(){
+        LocalDateTime date = LocalDateTime.ofEpochSecond(dateMilis, 0, ZoneOffset.UTC);
         return date.format(DateTimeFormatter.ISO_DATE);
     }
 

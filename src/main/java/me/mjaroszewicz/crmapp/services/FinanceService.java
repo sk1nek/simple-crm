@@ -1,18 +1,17 @@
 package me.mjaroszewicz.crmapp.services;
 
-import me.mjaroszewicz.crmapp.entities.Client;
+import me.mjaroszewicz.crmapp.dto.ExpenseDto;
+import me.mjaroszewicz.crmapp.entities.Expense;
 import me.mjaroszewicz.crmapp.entities.Order;
 import me.mjaroszewicz.crmapp.entities.Payment;
-import me.mjaroszewicz.crmapp.entities.User;
 import me.mjaroszewicz.crmapp.exceptions.PersistenceException;
 import me.mjaroszewicz.crmapp.repositories.ClientRepository;
+import me.mjaroszewicz.crmapp.repositories.ExpenseRepository;
 import me.mjaroszewicz.crmapp.repositories.OrderRepository;
 import me.mjaroszewicz.crmapp.repositories.PaymentRepository;
-import me.mjaroszewicz.crmapp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Service("financeService")
@@ -20,6 +19,9 @@ public class FinanceService {
 
     @Autowired
     private PaymentRepository paymentRepository;
+
+    @Autowired
+    private ExpenseRepository expenseRepository;
 
     @Autowired
     private ClientRepository clientRepository;
@@ -62,6 +64,21 @@ public class FinanceService {
     public List<Payment> getAllPayments() {
 
         return paymentRepository.findAll();
+    }
+
+    public List<Expense> getAllExpenses(){
+
+        return expenseRepository.findAll();
+    }
+
+    public void addNewExpense(ExpenseDto dto){
+
+        Expense expense = new Expense();
+        expense.setDateMilis(System.currentTimeMillis());
+        expense.setValue(dto.getValue());
+        expense.setDescription(dto.getDescription());
+
+        expenseRepository.save(expense);
     }
 
 
