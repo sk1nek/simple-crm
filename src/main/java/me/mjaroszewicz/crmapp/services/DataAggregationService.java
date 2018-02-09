@@ -1,13 +1,18 @@
 package me.mjaroszewicz.crmapp.services;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import me.mjaroszewicz.crmapp.entities.Complaint;
+import me.mjaroszewicz.crmapp.entities.Expense;
 import me.mjaroszewicz.crmapp.entities.Order;
 import me.mjaroszewicz.crmapp.entities.Payment;
 import me.mjaroszewicz.crmapp.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 public class DataAggregationService {
@@ -26,6 +31,12 @@ public class DataAggregationService {
 
     @Autowired
     private ClientRepository clientRepository;
+
+    @Autowired
+    private ExpenseRepository expenseRepository;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     public long getClientsCount(){
         return clientRepository.count();
@@ -78,6 +89,68 @@ public class DataAggregationService {
 
     public List<Order> getLastThreeOrders(){
         return orderRepository.findFirst3ByOrderByIdDesc();
+    }
+
+    public ArrayNode getEightWeekFinanceSummary() throws JsonProcessingException{
+
+        Long eightWeeksMillis = 1000 * 60 * 60 * 24 * 7 * 8L;
+        Long oneWeekMillis = 1000 * 60 * 60 * 24 * 7L;
+        Long eightWeeksMillisFromNow = System.currentTimeMillis() - eightWeeksMillis;
+
+        //array to be parsed on return
+        Double[][] ret = new Double[2][];
+        List<Expense> expenses = expenseRepository.findAllByDateMilisGreaterThan(eightWeeksMillisFromNow);
+
+        Double[] expenseSums = new Double[8];
+        for(int i = 0 ; i < 8 ; i++)
+            expenseSums[i] = 0.0;
+
+
+        expenses.stream().forEach(p->{
+            Long date = p.getDateMilis();
+            int position = (int) ((System.currentTimeMillis() - oneWeekMillis - date) / oneWeekMillis);
+
+                System.out.println(position );
+                Double sum = expenseSums[position];
+                sum += p.getValue();
+                expenseSums[position] = sum;
+        });
+
+        List<Payment> payments = paymentRepository.findAllByDateMilisGreaterThan(eightWeeksMillisFromNow);
+
+        Double[] paymentSums = new Double[8];
+        for(int i = 0; i < 8 ; i++)
+            paymentSums[i] = 0.0;
+
+        payments.stream().forEach(p->{
+            Long date = p.getDateMilis();
+            int position = (int) ((System.currentTimeMillis() - oneWeekMillis - date) / oneWeekMillis);
+
+            if(position > 0 && position < 9){
+                Double sum = paymentSums[position - 1];
+                sum += p.getAmount();
+                paymentSums[position - 1] = sum;
+            }
+        });
+
+        ret[0] = paymentSums;
+        ret[1] = expenseSums;
+
+
+        ArrayNode o = objectMapper.createArrayNode();
+        ArrayNode paymentsNode = o.arrayNode();
+        for (Double d : paymentSums)
+            paymentsNode.add(d);
+
+        ArrayNode expensesNode = o.arrayNode();
+        for(Double d: expenseSums)
+            expensesNode.add(d);
+
+        o.add(paymentsNode);
+        o.add(expensesNode);
+
+
+        return o;
     }
 
 

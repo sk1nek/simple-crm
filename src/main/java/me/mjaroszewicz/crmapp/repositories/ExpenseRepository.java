@@ -11,5 +11,7 @@ public interface ExpenseRepository extends CrudRepository<Expense, Long> {
 
     List<Expense> findAll();
 
+    List<Expense> findAllByDateMilisGreaterThan(Long dateMilis);
+
 
 }

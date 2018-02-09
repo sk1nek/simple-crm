@@ -55,7 +55,15 @@
 
   </body>
 
-<script>
+<script th:inline="javascript">
+
+    var expenses = /*[[${expenses}]]*/ "[]";
+    var payments = /*[[${payments}]]*/ "[]";
+
+
+    alert(expenses);
+    alert(payments);
+
     var ctx = document.getElementById("lastEightWeeksChart");
 
     var config1 = {
@@ -66,32 +74,14 @@
                 label: "Income",
                 backgroundColor: "Green",
                 borderColor: "Green",
-                data: [
-                    5000,
-                    7000,
-                    2000,
-                    9000,
-                    1000,
-                    3000,
-                    4000,
-                    5000
-                ],
+                data: JSON.parse(payments),
                 fill: false
             },
                 {
                     label: "Expenses",
                     backgroundColor: "Red",
                     borderColor: "Red",
-                    data: [
-                        1000,
-                        1500,
-                        5000,
-                        3000,
-                        7000,
-                        1000,
-                        500,
-                        2800
-                    ],
+                    data: JSON.parse(expenses),
                     fill: false
                 }
             ]

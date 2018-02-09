@@ -13,5 +13,8 @@ public interface PaymentRepository extends CrudRepository<Payment, Long> {
 
     List<Payment> findAll();
 
+    List<Payment> findAllByDateMilisGreaterThan(Long dateMilis);
+
+
 
 }

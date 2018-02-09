@@ -34,7 +34,7 @@ public class Expense {
      * @return Creation date formatted in ISO format.
      */
     public String getStringDate(){
-        LocalDateTime date = LocalDateTime.ofEpochSecond(dateMilis, 0, ZoneOffset.UTC);
+        LocalDateTime date = LocalDateTime.ofEpochSecond(dateMilis / 1000, 0, ZoneOffset.UTC);
         return date.format(DateTimeFormatter.ISO_DATE);
     }
 
