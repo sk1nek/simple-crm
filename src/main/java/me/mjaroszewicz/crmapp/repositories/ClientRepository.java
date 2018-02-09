@@ -12,4 +12,6 @@ public interface ClientRepository extends CrudRepository<Client, Long> {
     List<Client> findAll();
 
     Client findOneByName(String name);
+
+    List<Client> findAllByDateCreatedMilisGreaterThan(Long date);
 }

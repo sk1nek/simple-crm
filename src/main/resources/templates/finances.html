@@ -36,10 +36,15 @@
 
       <section class="section">
           <div class="columns">
-              <div class="column is-centered">
+              <div class="column">
                   <h1 class="title is-centered">Income and expenses over the last 8 weeks</h1>
                   <canvas id="lastEightWeeksChart">
                   </canvas>
+              </div>
+
+              <div class="column">
+                  <h1 class="title is-center">Client gain over last 8 weeks</h1>
+                  <canvas id="clientGainChart"></canvas>
               </div>
 
 
@@ -60,11 +65,15 @@
     var expenses = /*[[${expenses}]]*/ "[]";
     var payments = /*[[${payments}]]*/ "[]";
 
+    var clients = /*[[${clients}]]*/ "[]";
+
 
     alert(expenses);
     alert(payments);
 
     var ctx = document.getElementById("lastEightWeeksChart");
+
+    var ctx2 = document.getElementById("clientGainChart");
 
     var config1 = {
         type: 'line',
@@ -90,7 +99,53 @@
             responsive: true,
             title:{
                 display:false,
-                text:'Income over last 4 weeks'
+                text:'Income over last 8 weeks'
+            },
+            tooltips: {
+                mode: 'index',
+                intersect: false,
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Weeks ago'
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Value'
+                    }
+                }]
+            }
+        }
+    };
+
+    var config2 = {
+        type: 'line',
+        data: {
+            labels: ["8", "7", "6", "5","4", "3", "2", "1"],
+            datasets: [{
+                label: "New clients",
+                backgroundColor: "Blue",
+                borderColor: "Blue",
+                data: JSON.parse(clients),
+                fill: false
+            }
+            ]
+        },
+        options: {
+            responsive: true,
+            title:{
+                display:false,
+                text:'New clients per week over last 8 weeks'
             },
             tooltips: {
                 mode: 'index',
@@ -120,7 +175,12 @@
     };
 
 
-    var myLineChart = new Chart(ctx, config1);
+
+    var moneyChart = new Chart(ctx, config1);
+
+    var clientGainChart = new Chart(ctx2, config2);
+
+
 
 
 

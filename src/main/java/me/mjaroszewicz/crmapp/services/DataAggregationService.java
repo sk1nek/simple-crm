@@ -4,10 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import me.mjaroszewicz.crmapp.entities.Complaint;
-import me.mjaroszewicz.crmapp.entities.Expense;
-import me.mjaroszewicz.crmapp.entities.Order;
-import me.mjaroszewicz.crmapp.entities.Payment;
+import me.mjaroszewicz.crmapp.entities.*;
 import me.mjaroszewicz.crmapp.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -114,9 +111,11 @@ public class DataAggregationService {
             Long date = p.getDateMilis();
             int position = (int) ((System.currentTimeMillis() - oneWeekMillis - date) / oneWeekMillis);
 
+            if(position != 0){
                 Double sum = expenseSums[position];
                 sum += p.getValue();
                 expenseSums[position] = sum;
+            }
         });
 
         List<Payment> payments = paymentRepository.findAllByDateMilisGreaterThan(eightWeeksMillisFromNow);
@@ -129,9 +128,11 @@ public class DataAggregationService {
             Long date = p.getDateMilis();
             int position = (int) ((System.currentTimeMillis() - oneWeekMillis - date) / oneWeekMillis);
 
-                Double sum = paymentSums[position - 1];
-                sum += p.getAmount();
-                paymentSums[position - 1] = sum;
+                if(position != 0){
+                    Double sum = paymentSums[position - 1];
+                    sum += p.getAmount();
+                    paymentSums[position - 1] = sum;
+                }
         });
 
         ret[0] = paymentSums;
@@ -152,6 +153,41 @@ public class DataAggregationService {
 
 
         return o;
+    }
+
+    public ArrayNode getNewClientsEightWeeks() throws JsonProcessingException{
+
+        Long current = System.currentTimeMillis();
+
+        Long eightWeeksMillis = 1000 * 60 * 60 * 24 * 7 * 8L;
+        Long oneWeekMillis = 1000 * 60 * 60 * 24 * 7L;
+        Long eightWeeksMillisFromNow = current - eightWeeksMillis;
+
+
+        List<Client> clients = clientRepository.findAllByDateCreatedMilisGreaterThan(eightWeeksMillisFromNow);
+
+        Integer[] sums = new Integer[8];
+        for(int i = 0 ; i < 8 ; i++)
+            sums[i] = 0;
+
+        clients.stream().forEach(p->{
+            Long date = p.getDateCreatedMilis();
+            int position = (int) ((current - oneWeekMillis - date) / oneWeekMillis);
+
+            if(position != 0){
+                int sum = sums[position - 1];
+                sum++;
+                sums[position - 1] = sum;
+            }
+
+        });
+
+        ArrayNode ret = objectMapper.createArrayNode();
+
+        for (Integer integer : sums)
+            ret.add(integer);
+
+        return ret;
     }
 
 
