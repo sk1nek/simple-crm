@@ -91,6 +91,10 @@ public class DataAggregationService {
         return orderRepository.findFirst3ByOrderByIdDesc();
     }
 
+    /**@return Returns string representation Json Array containing payments and expenses sums from last 8 weeks.
+     * Array needs to be parsed from String before being used.
+     * @throws JsonProcessingException
+     */
     public ArrayNode getEightWeekFinanceSummary() throws JsonProcessingException{
 
         Long eightWeeksMillis = 1000 * 60 * 60 * 24 * 7 * 8L;
@@ -110,7 +114,6 @@ public class DataAggregationService {
             Long date = p.getDateMilis();
             int position = (int) ((System.currentTimeMillis() - oneWeekMillis - date) / oneWeekMillis);
 
-                System.out.println(position );
                 Double sum = expenseSums[position];
                 sum += p.getValue();
                 expenseSums[position] = sum;
@@ -126,11 +129,9 @@ public class DataAggregationService {
             Long date = p.getDateMilis();
             int position = (int) ((System.currentTimeMillis() - oneWeekMillis - date) / oneWeekMillis);
 
-            if(position > 0 && position < 9){
                 Double sum = paymentSums[position - 1];
                 sum += p.getAmount();
                 paymentSums[position - 1] = sum;
-            }
         });
 
         ret[0] = paymentSums;
