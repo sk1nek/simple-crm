@@ -7,6 +7,7 @@
       <link rel="stylesheet" href="/bulma.min.css"/>
       <link rel="stylesheet" href="/style.css"/>
       <script src="fa-all.js"></script>
+      <script src="/chart.min.js"></script>
   </head>
   <body>
 
@@ -33,10 +34,17 @@
 
 
 
-      <h1 class="title">
-          TODO
-      </h1>
+      <section class="section">
+          <div class="columns">
+              <div class="column is-centered">
+                  <h1 class="title is-centered">Income and expenses over the last 8 weeks</h1>
+                  <canvas id="lastEightWeeksChart">
+                  </canvas>
+              </div>
 
+
+          </div>
+      </section>
 
 
   </div>
@@ -46,4 +54,86 @@
   <footer th:replace="fragments/footer :: footer"></footer>
 
   </body>
+
+<script>
+    var ctx = document.getElementById("lastEightWeeksChart");
+
+    var config1 = {
+        type: 'line',
+        data: {
+            labels: ["8", "7", "6", "5","4", "3", "2", "1"],
+            datasets: [{
+                label: "Income",
+                backgroundColor: "Green",
+                borderColor: "Green",
+                data: [
+                    5000,
+                    7000,
+                    2000,
+                    9000,
+                    1000,
+                    3000,
+                    4000,
+                    5000
+                ],
+                fill: false
+            },
+                {
+                    label: "Expenses",
+                    backgroundColor: "Red",
+                    borderColor: "Red",
+                    data: [
+                        1000,
+                        1500,
+                        5000,
+                        3000,
+                        7000,
+                        1000,
+                        500,
+                        2800
+                    ],
+                    fill: false
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            title:{
+                display:false,
+                text:'Income over last 4 weeks'
+            },
+            tooltips: {
+                mode: 'index',
+                intersect: false,
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Weeks ago'
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Value'
+                    }
+                }]
+            }
+        }
+    };
+
+
+    var myLineChart = new Chart(ctx, config1);
+
+
+
+</script>
+
 </html>
