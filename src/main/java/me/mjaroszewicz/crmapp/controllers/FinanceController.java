@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import me.mjaroszewicz.crmapp.entities.Client;
 import me.mjaroszewicz.crmapp.repositories.ClientRepository;
+import me.mjaroszewicz.crmapp.repositories.PaymentRepository;
 import me.mjaroszewicz.crmapp.services.DataAggregationService;
 import me.mjaroszewicz.crmapp.services.FinanceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,6 @@ public class FinanceController {
     public ObjectMapper objectMapper(){
         return new ObjectMapper();
     }
-
 
     @GetMapping()
     public ModelAndView getFinancesDashboard(ModelAndView mv) throws JsonProcessingException {
