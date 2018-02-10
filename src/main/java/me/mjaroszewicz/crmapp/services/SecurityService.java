@@ -49,4 +49,11 @@ public class SecurityService {
 
     }
 
+
+    public void logoutCurrent(){
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        auth.setAuthenticated(false);
+    }
+
 }
