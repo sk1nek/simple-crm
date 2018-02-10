@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.Collections;
 
 @Controller
 public class LoginController {
@@ -30,14 +31,18 @@ public class LoginController {
     }
 
     @PostMapping("/perform-login")
-    public String handleLogin(@Valid LoginDto user, Errors err) {
+    public ModelAndView handleLogin(ModelAndView mv, @Valid LoginDto user, Errors err) {
 
-        if(err.hasErrors())
-            return "redirect:/login?error";
+
+        if(err.hasErrors()){
+            mv.addObject("errors", Collections.singletonList("Invalid username or password. Please try again with valid credentials"));
+            return getLoginPage(mv);
+        }
 
         securityService.autologin(user.getUsername(), user.getPassword());
+        mv.setViewName("redirect:/dashboard");
 
-        return "redirect:/dashboard";
+        return mv;
     }
 
 }

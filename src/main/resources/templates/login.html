@@ -35,6 +35,11 @@
                             <i class="fas fa-lock"></i>
                         </span>
                     </p>
+
+                    <th:block th:each="err: ${errors}">
+                        <p class="is-small has-text-danger" th:text="${err}"></p>
+                    </th:block>
+
                 </div>
                 <div class="field">
                     <p class="control">

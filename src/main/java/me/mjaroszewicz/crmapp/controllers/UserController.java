@@ -49,7 +49,6 @@ public class UserController {
         if(err.hasErrors()){
             err.getAllErrors().forEach(e -> errors.add(e.getDefaultMessage()));
             mv.addObject("errors", errors);
-            errors.forEach(System.out::println);
             return getRegistrationForm(mv);
         }
 
