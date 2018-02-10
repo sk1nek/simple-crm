@@ -1,6 +1,7 @@
 package me.mjaroszewicz.crmapp.services;
 
 import me.mjaroszewicz.crmapp.dto.ExpenseDto;
+import me.mjaroszewicz.crmapp.dto.PaymentDto;
 import me.mjaroszewicz.crmapp.entities.Expense;
 import me.mjaroszewicz.crmapp.entities.Order;
 import me.mjaroszewicz.crmapp.entities.Payment;
@@ -28,6 +29,18 @@ public class FinanceService {
 
     @Autowired
     private OrderRepository orderRepository;
+
+    public void addPayment(PaymentDto dto) throws PersistenceException{
+
+        Payment p = new Payment();
+        p.setAmount(dto.getValue());
+        p.setDateMilis(System.currentTimeMillis());
+        p.setDescription(dto.getDescription());
+        p.setParentOrderId(dto.getParentOrderId());
+
+        addPaymentToOrder(dto.getParentOrderId(), p);
+
+    }
 
     public void addPaymentToOrder(Long orderId, Payment payment) throws PersistenceException {
 
