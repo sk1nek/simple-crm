@@ -20,3 +20,36 @@ body{
 input[type="file"]{
     display: none;
 }
+
+.hiding {
+    -moz-animation: hideAnimation 0s ease-in 2s forwards;
+    -webkit-animation: hideAnimation 0s ease-in 2s forwards;
+    -o-animation: hideAnimation 0s ease-in 2s forwards;
+    animation: hideAnimation 0s ease-in 2s forwards;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+
+@keyframes hideAnimation {
+    0%{
+        opacity: 1;
+    }
+
+    100%{
+        opacity: 0;
+        left: -9999px;
+        position: absolute;
+    }
+}
+
+@-webkit-keyframes hideAnimation {
+    0%{
+        opacity: 1;
+    }
+
+    100%{
+        opacity: 0;
+        left: -9999px;
+        position: absolute;
+    }
+}

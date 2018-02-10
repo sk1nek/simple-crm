@@ -8,7 +8,7 @@
 <div th:fragment="messages" >
 
     <th:block th:each="message : ${messages}">
-        <div class="notification is-success">
+        <div class="notification is-success hiding">
             <button class="delete" onclick="this.parentElement.style.display='none'"></button>
             <p th:text="${message}"></p>
         </div>
@@ -19,7 +19,7 @@
 <div th:fragment="errors" >
 
     <th:block th:each="error : ${errors}">
-        <div class="notification is-danger">
+        <div class="notification is-danger hiding">
             <button class="delete" onclick="this.parentElement.style.display='none'"></button>
             <p th:text="${error}"></p>
         </div>
