@@ -3,19 +3,17 @@ package me.mjaroszewicz.crmapp.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import me.mjaroszewicz.crmapp.entities.Client;
-import me.mjaroszewicz.crmapp.repositories.ClientRepository;
-import me.mjaroszewicz.crmapp.repositories.PaymentRepository;
 import me.mjaroszewicz.crmapp.services.DataAggregationService;
 import me.mjaroszewicz.crmapp.services.FinanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.PostConstruct;
+import java.util.Collections;
 
 @RequestMapping("/finance")
 @Controller
@@ -56,6 +54,16 @@ public class FinanceController {
         return mv;
     }
 
+    @GetMapping("/payments/delete/{id}")
+    public ModelAndView deletePayment(ModelAndView mv, @PathVariable Long id){
+
+        financeService.removePayment(id);
+
+        mv.addObject("messages", Collections.singletonList("Success!"));
+
+        return getPaymentsListing(mv);
+    }
+
     @GetMapping("/expenses")
     public ModelAndView getExpensesListing(ModelAndView mv) {
 
@@ -64,5 +72,16 @@ public class FinanceController {
         mv.addObject("expenses", financeService.getAllExpenses());
 
         return mv;
+    }
+
+    @GetMapping("/expenses/delete/{id}")
+    public ModelAndView removeExpense(ModelAndView mv, @PathVariable Long id){
+
+        financeService.removeExpense(id);
+
+        mv.addObject("messages", Collections.singletonList("Success!"));
+
+        return getExpensesListing(mv);
+
     }
 }

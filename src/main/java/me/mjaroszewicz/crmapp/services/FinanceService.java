@@ -81,6 +81,21 @@ public class FinanceService {
         expenseRepository.save(expense);
     }
 
+    public void removePayment(Long id){
+
+        Payment payment = paymentRepository.findOne(id);
+        Order order = orderRepository.findOne(payment.getParentOrderId());
+
+        order.getPayments().remove(payment);
+        paymentRepository.delete(id);
+    }
+
+    public void removeExpense(Long id){
+
+        expenseRepository.delete(id);
+
+    }
+
 
 
 }

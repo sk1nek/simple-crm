@@ -46,11 +46,11 @@
 
                 <tr>
                     <th th:text="${expense.id}"></th>
-                    <td th:text="${expense.value}"></td>
+                    <td th:text="'$' + ${expense.value}"></td>
                     <td th:text="${expense.description}"></td>
                     <td th:text="${expense.getStringDate()}"></td>
-                    <td class="tags">
-                        <a class="tag" th:href="@{/finance/expenses/remove/{id}(id=${expense.id})}">Remove</a>
+                    <td>
+                        <a class="tag" th:href="@{/finance/expenses/delete/{id}(id=${expense.id})}">Delete</a>
                     </td>
 
                 </tr>

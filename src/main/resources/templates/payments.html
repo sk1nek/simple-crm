@@ -35,6 +35,7 @@
             <th>Description</th>
             <th>Order</th>
             <th>Date</th>
+            <th>Controls</th>
 
             </thead>
 
@@ -50,6 +51,9 @@
                     <td th:text="${payment.description}"></td>
                     <td><a th:href="@{/orders/{orderid}(orderid = ${payment.parentOrderId})}" th:text="'Click'"></a> </td>
                     <td th:text="${payment.getStringDate()}"></td>
+                    <td>
+                        <a class="tag" th:href="@{/finance/payments/delete/{id}(id=${payment.id})}">Remove</a>
+                    </td>
 
                 </tr>
 
