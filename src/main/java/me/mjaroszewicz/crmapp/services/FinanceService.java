@@ -81,7 +81,7 @@ public class FinanceService {
         expenseRepository.save(expense);
     }
 
-    public void removePayment(Long id){
+    public void removePayment(Long id) throws NullPointerException{
 
         Payment payment = paymentRepository.findOne(id);
         Order order = orderRepository.findOne(payment.getParentOrderId());
