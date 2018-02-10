@@ -75,9 +75,9 @@
 
       <section class="section">
 
-          <div class="columns">
+          <div class="columns is-narrow">
               <div class="column">
-                  <h1 class="title">
+                  <h1 class="title has-text-centered">
                       Latest payments
                   </h1>
 
@@ -87,6 +87,8 @@
                       <tr>
                           <th>Amount</th>
                           <th>Description</th>
+                          <th>Order</th>
+                          <th>Date</th>
                       </tr>
                       </thead>
 
@@ -96,6 +98,8 @@
                           <tr>
                               <td th:text="${payment.amount}"></td>
                               <td th:text="${payment.description}"></td>
+                              <td><a th:href="@{/orders/{id}(id=${payment.parentOrderId})}">Order</a> </td>
+                              <td th:text="${payment.getStringDate()}"></td>
                           </tr>
                       </th:block>
 
@@ -105,7 +109,7 @@
               </div>
 
               <div class="column">
-                  <h1 class="title">Latest orders</h1>
+                  <h1 class="title has-text-centered">Latest orders</h1>
 
                   <table class="table">
 
@@ -139,7 +143,7 @@
 
               <div class="column">
 
-                  <h1 class="title">Latest complaints</h1>
+                  <h1 class="title has-text-centered">Latest complaints</h1>
 
                   <table class="table">
 
