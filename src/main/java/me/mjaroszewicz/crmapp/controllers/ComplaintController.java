@@ -90,16 +90,6 @@ public class ComplaintController {
 
     }
 
-    @PostMapping("/dupa")
-    public ModelAndView dupa(ModelAndView mv, @RequestAttribute String dupa) {
-
-        System.out.println(dupa);
-
-        return mv;
-    }
-
-
-
     @PostMapping("/new")
     public ModelAndView handleComplaintSubmit(ModelAndView mv,
                                               @ModelAttribute @Valid ComplaintDto complaint,

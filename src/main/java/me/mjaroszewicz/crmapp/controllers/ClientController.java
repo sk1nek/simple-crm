@@ -86,7 +86,6 @@ public class ClientController {
 
         Client client = clientService.getClient(id);
         mv.addObject("client", client.getDto());
-        mv.addObject("clientid", id);
 
         return mv;
     }
