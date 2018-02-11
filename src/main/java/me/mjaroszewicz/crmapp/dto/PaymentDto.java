@@ -5,10 +5,13 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import org.hibernate.validator.constraints.NotBlank;
 
+import javax.validation.constraints.NotNull;
+
 @Data
 @NoArgsConstructor
 public class PaymentDto {
 
+    @NotNull
     @NonNull
     private double value;
 
@@ -16,7 +19,7 @@ public class PaymentDto {
     @NotBlank
     private String description;
 
-    @NotBlank
+    @NotNull
     @NonNull
     private long parentOrderId;
 
