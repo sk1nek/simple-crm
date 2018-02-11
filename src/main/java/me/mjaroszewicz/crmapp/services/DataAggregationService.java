@@ -92,7 +92,7 @@ public class DataAggregationService {
      * Array needs to be parsed from String before being used.
      * @throws JsonProcessingException
      */
-    public ArrayNode getEightWeekFinanceSummary() throws JsonProcessingException{
+    public ArrayNode getEightWeekFinanceSummary() {
 
         Long eightWeeksMillis = 1000 * 60 * 60 * 24 * 7 * 8L;
         Long oneWeekMillis = 1000 * 60 * 60 * 24 * 7L;
@@ -155,7 +155,7 @@ public class DataAggregationService {
         return o;
     }
 
-    public ArrayNode getNewClientsEightWeeks() throws JsonProcessingException{
+    public ArrayNode getNewClientsEightWeeks() {
 
         Long current = System.currentTimeMillis();
 

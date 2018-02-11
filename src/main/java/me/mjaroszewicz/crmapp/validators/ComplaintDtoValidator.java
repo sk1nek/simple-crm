@@ -5,9 +5,11 @@ import me.mjaroszewicz.crmapp.dto.ComplaintDto;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import java.util.regex.Pattern;
 
 public class ComplaintDtoValidator implements ConstraintValidator<ValidComplaintDto, ComplaintDto> {
 
+    private Pattern datePattern = Pattern.compile("\\d{4}.\\d{2}.\\d{2}");
 
     @Override
     public void initialize(ValidComplaintDto constraintAnnotation) {
@@ -19,7 +21,7 @@ public class ComplaintDtoValidator implements ConstraintValidator<ValidComplaint
 
         boolean validId = value.getOrderId() > 0;
 
-        boolean validDeadline = value.getDeadline() != null && value.getDeadline().matches("\\d{4}.\\d{2}.\\d{2}");
+        boolean validDeadline = value.getDeadline() != null && datePattern.matcher(value.getDeadline()).matches();
 
         boolean validDescription = value.getDescription() != null && !value.getDescription().isEmpty();
 
