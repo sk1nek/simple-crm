@@ -19,7 +19,7 @@ public class ComplaintDtoValidator implements ConstraintValidator<ValidComplaint
     @Override
     public boolean isValid(ComplaintDto value, ConstraintValidatorContext context) {
 
-        boolean validId = value.getOrderId() > 0;
+        boolean validId = value.getOrderId() != null && value.getOrderId().longValue() > 0;
 
         boolean validDeadline = value.getDeadline() != null && datePattern.matcher(value.getDeadline()).matches();
 

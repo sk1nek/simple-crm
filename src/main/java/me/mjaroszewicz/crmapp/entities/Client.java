@@ -37,7 +37,7 @@ public class Client {
     private long dateCreatedMilis;
 
     public ClientDto getDto(){
-        return new ClientDto(name, description, address, phone, email);
+        return new ClientDto(id, name, description, address, phone, email);
     }
 
 }

@@ -26,6 +26,7 @@ public class ClientDtoValidator implements ConstraintValidator<ValidClient, Clie
 
         boolean validEmail = (v.getEmail() != null &&  (v.getEmail() == null || emailPattern.matcher(v.getEmail()).matches() || v.getEmail().isEmpty()));
 
+
         return validName && validEmail;
     }
 }

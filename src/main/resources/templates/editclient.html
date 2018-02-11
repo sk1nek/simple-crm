@@ -24,12 +24,13 @@
 
           <h1 class="title">Edit client</h1>
 
-          <form class="form" method="post" th:object="${client}" action="#" th:action="@{/clients/edit/{id}(id=${clientid})}">
+          <!--/*@thymesVar id="client" type="me.mjaroszewicz.crmapp.dto.ClientDto"*/-->
+          <form class="form" method="post" th:object="${client}" action="#" th:action="@{/clients/edit}">
 
               <div class="field">
                   <label class="label">Id</label>
                   <div class="control">
-                      <input class="input" type="text" disabled="disabled" th:value="${clientid}"/>
+                      <input class="input" type="text" disabled="disabled" th:field="*{id}"/>
                   </div>
               </div>
 
@@ -37,7 +38,7 @@
               <div class="field">
                   <label class="label">Name</label>
                   <div class="control">
-                      <input class="input" type="text"  th:field="${client.name}"/>
+                      <input class="input" type="text"  th:field="*{name}"/>
                   </div>
               </div>
 
@@ -45,28 +46,28 @@
               <div class="field">
                   <label class="label">Description</label>
                   <div class="control">
-                      <input class="input" type="text" th:field="${client.description}"/>
+                      <input class="input" type="text" th:field="*{description}"/>
                   </div>
               </div>
 
               <div class="field">
                   <label class="label">Address</label>
                   <div class="control">
-                      <input class="input" type="text" th:field="${client.address}"/>
+                      <input class="input" type="text" th:field="*{address}"/>
                   </div>
               </div>
 
               <div class="field">
                   <label class="label">Phone</label>
                   <div class="control">
-                      <input class="input" type="text" th:field="${client.phone}"/>
+                      <input class="input" type="text" th:field="*{phone}"/>
                   </div>
               </div>
 
               <div class="field">
                   <label class="label">Email</label>
                   <div class="control">
-                      <input class="input" type="text" th:field="${client.email}"/>
+                      <input class="input" type="text" th:field="*{email}"/>
                   </div>
               </div>
 

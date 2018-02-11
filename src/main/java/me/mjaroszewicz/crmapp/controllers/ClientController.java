@@ -91,8 +91,10 @@ public class ClientController {
         return mv;
     }
 
-    @PostMapping("/edit/{id}")
-    public ModelAndView handleClientEdit(ModelAndView mv, @Valid ClientDto dto, @PathVariable Long id,  Errors errors) {
+    @PostMapping("/edit")
+    public ModelAndView handleClientEdit(ModelAndView mv, @Valid ClientDto dto,  Errors errors) {
+
+        long id = dto.getId();
 
         if(errors.hasErrors()){
 
