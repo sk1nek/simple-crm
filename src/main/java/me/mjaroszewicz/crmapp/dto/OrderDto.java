@@ -3,6 +3,8 @@ package me.mjaroszewicz.crmapp.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import me.mjaroszewicz.crmapp.annotations.ValidDate;
+import me.mjaroszewicz.crmapp.annotations.ValidOrderDto;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
@@ -10,12 +12,12 @@ import javax.validation.constraints.NotNull;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ValidOrderDto
 public class OrderDto {
 
     private Long clientId;
 
     @NotNull
-    @Length(min = 3, max = 100)
     private String orderName;
 
     private String description;
@@ -24,5 +26,6 @@ public class OrderDto {
     private double value;
 
     @NotNull
+    @ValidDate
     private String dateDeadline;
 }

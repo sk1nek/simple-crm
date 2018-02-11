@@ -50,7 +50,7 @@ public class OrderController {
     }
 
     @PostMapping("/new")
-    public ModelAndView createNewOrder(@ModelAttribute OrderDto orderDto, ModelAndView mv, Errors err){
+    public ModelAndView createNewOrder(@Valid @ModelAttribute("orderdto") OrderDto orderDto, ModelAndView mv, Errors err){
 
         if(err.hasErrors()){
             mv.addObject("errors", err.getAllErrors());
