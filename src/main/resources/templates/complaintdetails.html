@@ -82,13 +82,13 @@
 
 
           <div class="field">
-              <!--/*@thymesVar id="statusdto" type="me.mjaroszewicz.crmapp.dto.StatusChangeDto"*/-->
-              <form action="#" class="field has-addons"
-                    th:action="@{/complaints/change/state}" method="post">
-                  <input style="display: none" name="id" th:value="${complaint.id}"/>
+              <!--/*@thymesVar id="statusDto" type="me.mjaroszewicz.crmapp.dto.StatusChangeDto"*/-->
+              <form action="#" enctype="application/x-www-form-urlencoded" class="field has-addons" th:object="${statusDto}"
+                    th:action="@{/complaints/changestate}" method="post">
+                  <input style="display: none" th:field="*{targetId}"/>
                   <div class="control">
-                      <select class="input"  name="state">
-                          <option value="-1" th:text="'Accepted'"></option>
+                      <select class="input" th:field="*{state}">
+                          <option value="-1"  th:text="'Accepted'"></option>
                           <option value="0" th:text="'In Production'"></option>
                           <option value="1" th:text="'Realized'"></option>
                       </select>

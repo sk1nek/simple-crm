@@ -5,15 +5,20 @@ import me.mjaroszewicz.crmapp.dto.StatusChangeDto;
 import me.mjaroszewicz.crmapp.exceptions.ComplaintSubmitException;
 import me.mjaroszewicz.crmapp.exceptions.StatusChangeException;
 import me.mjaroszewicz.crmapp.services.ComplaintService;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.MultiValueMap;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.Collections;
+import java.util.Enumeration;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -58,24 +63,29 @@ public class ComplaintController {
 
         StatusChangeDto f = new StatusChangeDto();
         f.setTargetId(id);
-        f.setStatus(-1);
+        f.setState(-1);
 
-        mv.addObject("statusdto", f);
+        mv.addObject("statusDto", f);
 
         return mv;
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/change/state")
-    public ModelAndView handleStatusChange(ModelAndView mv,
-                                           @RequestParam @Valid Long id,
-                                           @RequestParam @Valid Integer state,
-                                           Errors err) {
+    @PostMapping(value = "/changestate")
+    public ModelAndView handleStatusChange(HttpServletRequest request,
+                                           ModelAndView mv) {
 
+        //TODO - find out why I had to use hack there
 
-        if (err.hasErrors()) {
-            mv.addObject("errors", Collections.singletonList("Validation error has occured, try again with non-null parameters."));
-            return getSingleComplaint(mv, id);
-        }
+        Map<String, String[]> params = request.getParameterMap();
+
+        Long id = Long.parseLong(params.get("targetId")[0]);
+        int state = Integer.parseInt(params.get("state")[0]);
+
+//        if (err.hasErrors()) {
+//            mv.addObject("errors", Collections.singletonList("Validation error has occured, try again with non-null parameters."));
+//            return getComplaintListing(mv);
+//        }
+
 
         try {
             complaintService.changeComplaintStatus(id, state);
@@ -86,7 +96,7 @@ public class ComplaintController {
 
         mv.addObject("messages", Collections.singletonList("Success! "));
 
-        return getSingleComplaint(mv, 1L);
+        return getComplaintListing(mv);
 
     }
 

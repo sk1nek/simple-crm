@@ -15,6 +15,6 @@ public class StatusChangeDto {
     private Long targetId;
 
     @NotNull
-    private Integer status;
+    private Integer state;
 
 }
