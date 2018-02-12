@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import me.mjaroszewicz.crmapp.annotations.ValidDate;
 import me.mjaroszewicz.crmapp.annotations.ValidOrderDto;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.NotNull;
 
