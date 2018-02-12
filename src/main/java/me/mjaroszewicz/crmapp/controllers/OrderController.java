@@ -3,6 +3,7 @@ package me.mjaroszewicz.crmapp.controllers;
 import me.mjaroszewicz.crmapp.dto.OrderDto;
 import me.mjaroszewicz.crmapp.entities.Client;
 import me.mjaroszewicz.crmapp.entities.Order;
+import me.mjaroszewicz.crmapp.exceptions.PersistenceException;
 import me.mjaroszewicz.crmapp.services.ClientService;
 import me.mjaroszewicz.crmapp.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +64,20 @@ public class OrderController {
 
         return getOrdersListing(mv);
 
+    }
+
+    @GetMapping("/delete/{id}")
+    public ModelAndView handleOrderDeletion(ModelAndView mv, @PathVariable Long id) {
+
+        try{
+            orderService.deleteOrder(id);
+        }catch(PersistenceException pex){
+            mv.addObject("errors", Collections.singletonList(pex.getMessage()));
+            return getOrdersListing(mv);
+        }
+
+        mv.addObject("messages", Collections.singletonList("Success!"));
+        return getOrdersListing(mv);
     }
 
     @GetMapping("/{id}")

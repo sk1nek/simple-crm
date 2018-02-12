@@ -91,6 +91,7 @@
                   <a class="button is-link" th:href="@{/complaints/new?orderId={id}(id=${order.id})}">Complaint</a>
                   <a class="button is-link" th:href="@{/orders/edit/{id}(id=${order.id})}">Edit</a>
                   <a class="button is-link" th:href="@{/finance/payments/new?orderId={id}(id=${order.id})}">Payment</a>
+                  <a class="button is-link" th:href="@{/orders/delete/{id}(id=${order.id})}">Delete</a>
               </div>
           </div>
 

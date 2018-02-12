@@ -3,6 +3,7 @@ package me.mjaroszewicz.crmapp.services;
 import me.mjaroszewicz.crmapp.dto.OrderDto;
 import me.mjaroszewicz.crmapp.entities.Client;
 import me.mjaroszewicz.crmapp.entities.Order;
+import me.mjaroszewicz.crmapp.exceptions.PersistenceException;
 import me.mjaroszewicz.crmapp.repositories.ClientRepository;
 import me.mjaroszewicz.crmapp.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,6 +69,20 @@ public class OrderService {
         order.setDateDeadline(dto.getDateDeadline());
 
         orderRepository.save(order);
+    }
+
+    /**
+     * Deletes order with specified id from repository.
+     * @param id - id of order to be deleted
+     * @throws PersistenceException if CrudRepository#exists(Long id) method returns false
+     */
+    public void deleteOrder(Long id) throws PersistenceException{
+
+        if(!orderRepository.exists(id))
+            throw new PersistenceException("Item not found.");
+
+        orderRepository.delete(id);
+
     }
 
 
