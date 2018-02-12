@@ -113,7 +113,7 @@ public class OrderController {
     @PostMapping("/edit/{id}")
     public ModelAndView handleOrderEditFormSubmit(ModelAndView mv,
                                                   @PathVariable Long id,
-                                                  @Valid @ModelAttribute("order") OrderDto orderDto,
+                                                  @Valid @RequestBody OrderDto orderDto,
                                                   Errors err) {
 
         if(err.hasErrors()){

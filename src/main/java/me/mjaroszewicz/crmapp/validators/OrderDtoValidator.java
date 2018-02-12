@@ -1,8 +1,6 @@
 package me.mjaroszewicz.crmapp.validators;
 
-import me.mjaroszewicz.crmapp.annotations.ValidComplaintDto;
 import me.mjaroszewicz.crmapp.annotations.ValidOrderDto;
-import me.mjaroszewicz.crmapp.dto.ComplaintDto;
 import me.mjaroszewicz.crmapp.dto.OrderDto;
 
 import javax.validation.ConstraintValidator;
@@ -27,6 +25,7 @@ public class OrderDtoValidator implements ConstraintValidator<ValidOrderDto, Ord
 
         boolean validOrderName = value.getOrderName() != null && value.getOrderName().length() > 3;
 
+        System.out.println(validDate + "" +  validOrderName + ""+ validDescription);
 
         return validDate && validOrderName && validDescription;
     }
