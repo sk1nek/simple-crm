@@ -2,6 +2,7 @@ package me.mjaroszewicz.crmapp.controllers;
 
 import me.mjaroszewicz.crmapp.dto.ClientDto;
 import me.mjaroszewicz.crmapp.entities.Client;
+import me.mjaroszewicz.crmapp.exceptions.PersistenceException;
 import me.mjaroszewicz.crmapp.services.ClientService;
 import me.mjaroszewicz.crmapp.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,6 +110,21 @@ public class ClientController {
         clientService.updateClient(dto, id);
 
         mv.addObject("messages", Collections.singletonList("Success!"));
+
+        return getClientsListing(mv);
+    }
+
+    @GetMapping("/delete/{id}")
+    public ModelAndView handleClientDelete(ModelAndView mv, @PathVariable Long id){
+
+        try{
+            clientService.removeClient(id);
+        }catch(PersistenceException pex){
+            mv.addObject("errors", Collections.singletonList(pex.getMessage()));
+            return getClientsListing(mv);
+        }
+
+        mv.addObject("messages", Collections.singletonList("Success"));
 
         return getClientsListing(mv);
     }

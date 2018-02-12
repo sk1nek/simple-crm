@@ -2,6 +2,7 @@ package me.mjaroszewicz.crmapp.services;
 
 import me.mjaroszewicz.crmapp.dto.ClientDto;
 import me.mjaroszewicz.crmapp.entities.Client;
+import me.mjaroszewicz.crmapp.exceptions.PersistenceException;
 import me.mjaroszewicz.crmapp.repositories.ClientRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,6 +66,14 @@ public class ClientService {
         client.setEmail(dto.getEmail());
 
         clientRepository.save(client);
+    }
+
+    public void removeClient(Long id) throws PersistenceException{
+
+        if(!clientRepository.exists(id))
+            throw new PersistenceException("Client with id: " + id + " not found");
+
+        clientRepository.delete(id);
     }
 
 }
