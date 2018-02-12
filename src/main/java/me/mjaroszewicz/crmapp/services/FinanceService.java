@@ -67,7 +67,6 @@ public class FinanceService {
         payment.setParentOrderId(order.getId());
         order.setPayments(payments);
 
-        System.out.println(order.toString());
 
         orderRepository.save(order);
 //        paymentRepository.save(payment);

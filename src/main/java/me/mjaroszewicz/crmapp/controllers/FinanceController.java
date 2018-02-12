@@ -34,7 +34,7 @@ public class FinanceController {
     }
 
     @GetMapping()
-    public ModelAndView getFinancesDashboard(ModelAndView mv) throws JsonProcessingException {
+    public ModelAndView getFinancesDashboard(ModelAndView mv) {
 
         mv.setViewName("finances");
 
